@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
-const Waitlist = require("../model/waitlistModel");
+const Waitlist = require("../models/waitlistModel");
 const sendEmail = require("../utils/sendEmail");
 
 
