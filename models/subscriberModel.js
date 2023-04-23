@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 
-const waitlistSchema = mongoose.Schema(
+const subscriberSchema = mongoose.Schema(
     {
         _id: mongoose.Schema.Types.ObjectId,
+        name: {
+            type: String,
+            required: [true, "Please add your name"]
+        },
         email: {
             type: String,
             required: [true, "Please add your email"],
@@ -21,4 +25,4 @@ const waitlistSchema = mongoose.Schema(
         timestamps: true
     });
 
-module.exports = mongoose.model("Waitlist", waitlistSchema);
+module.exports = mongoose.model("Subscriber", subscriberSchema);

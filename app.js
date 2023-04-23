@@ -27,6 +27,7 @@ const server  = http.createServer(app);
 const connectDB = require('./config/dbConn');
 
 // Route Import
+const waitRoutes = require("./routes/subscriberRoutes");
 
 // Connecting to Database Environments
 console.log(chalk.redBright(process.env.NODE_ENV));
@@ -35,6 +36,7 @@ connectDB()
 
 // Middlewares
 app.use(logger)
+app.use(errorHandler)
 
 
 // Cross Origin Resource Sharing
@@ -50,7 +52,7 @@ app.use(bodyParser.json())
 
 // Routes Middleware
 app.use("/api/v1/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
-
+app.use("/api/v1", waitRoutes);
 
 
 // Routes
@@ -67,7 +69,7 @@ app.all('*', (req, res) => {
     }
 })
 // Error Middleware
-app.use(errorHandler)
+
 
 
 module.exports = app;
