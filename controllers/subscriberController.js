@@ -60,8 +60,9 @@ const Subscribers = asyncHandler(async (req, res) => {
 
 });
 
-// Get all email via excel
 
+
+// Get all email via excel
 const downloadSubscribers = asyncHandler (async (req, res) => {
   Waitlist.find({}, (err, subscribers) => {
     if (err) {
