@@ -27,8 +27,6 @@ const server  = http.createServer(app);
 const connectDB = require('./config/dbConn');
 
 // Route Import
-const authRoutes = require("./routes/authRoutes");
-const userRoutes = require("./routes/userRoutes")
 
 // Connecting to Database Environments
 console.log(chalk.redBright(process.env.NODE_ENV));
