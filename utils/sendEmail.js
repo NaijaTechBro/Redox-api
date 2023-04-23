@@ -14,11 +14,11 @@ const sendEmail = async (
 ) => {
   // Create Email Transporter
     const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
+    host: process.env.REDOX_EMAIL_HOST,
+    port: process.env.REDOX_EMAIL_PORT,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.REDOX_EMAIL_USER,
+        pass: process.env.REDOX_EMAIL_PASS,
     },
     tls: {
         rejectUnauthorized: false,
