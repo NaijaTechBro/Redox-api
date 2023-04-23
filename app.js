@@ -50,8 +50,7 @@ app.use(bodyParser.json())
 
 // Routes Middleware
 app.use("/api/v1/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
-app.use("/api/v1,", authRoutes);
-app.use("/api/v1", userRoutes);
+
 
 
 // Routes
