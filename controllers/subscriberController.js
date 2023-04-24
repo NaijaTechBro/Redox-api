@@ -136,6 +136,19 @@ const SendSinglemail = asyncHandler(async (req, res) => {
 
 
 // send email to all users
+const sendAllUser = asyncHandler (async (req, res) => {
+  const { subject, send_to, reply_to, template } = req.body;
+  if (!subject || !send_to || !reply_to || !template) {
+    res.status(400).send('Missing automated email parameter');
+  }
+
+  // Get Users
+  const users = await Subscriber.find({ email: send_to});
+
+  if (!users) {
+    res.status(404)
+  } 
+})
 
 
 module.exports = {
