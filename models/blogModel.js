@@ -8,6 +8,10 @@ const blogSchema = mongoose.Schema({
     subtitle: {
         type: String
     },
+    category: {
+        type: String,
+        required: [true, "Please add a category"]
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Subcriber"

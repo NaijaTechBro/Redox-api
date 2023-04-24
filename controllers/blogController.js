@@ -45,9 +45,45 @@ const createblog = asyncHandler (async (req, res) => {
         }
     });
 
-// update blog
-// delete blog
-// filter by category
+    
+    // Update Blog
+    const updateBlog = asyncHandler(async (req, res) => {
+        const { id: _id } = req.params
+        const blog = req.body
+    
+        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No blog with that id')
+    
+        const updatedBlog = await Blog.findByIdAndUpdate(_id, {...blog, _id}, { new: true})
+    
+        res.json(updatedBlog)
+    });
+    
+    
+        // Delete Blog
+        const deleteBlog = asyncHandler(async (req, res) => {
+        const { id } = req.params
+    
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No Blog with that id')
+    
+        await Blog.findByIdAndRemove(id)
+    
+        res.json({message: 'Blog deleted successfully'})
+    });
+    
+    
+        // Get a Blog by a User
+        const getBlogsByUser = asyncHandler(async (req, res) => {
+        const { searchQuery } = req.query;
+    
+        try {
+            const blogs = await Blog.find({ userId: searchQuery });
+    
+            res.json({ data: blogs });
+        } catch (error) {    
+            res.status(404).json({ message: error.message });
+        }
+    });
+
 
 module.exports = {
     createblog,
