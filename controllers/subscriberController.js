@@ -63,9 +63,9 @@ const subscribers = asyncHandler(async (req, res) => {
 // Get all email
 const getEmails = async (req, res) => { 
   try {
-      const allProfiles = await Profile.find().sort({ _id: -1 });
+      const allEmails = await Subscriber.find().sort({ _id: -1 });
 
-      res.status(200).json(allProfiles);
+      res.status(200).json(allEmails);
   } catch (error) {
       res.status(404).json({ message: error.message });
   }
@@ -73,12 +73,12 @@ const getEmails = async (req, res) => {
 
 // Get An email
 const getEmail = async (req, res) => { 
-  const { id } = req.params;
+  const email = req.body;
 
   try {
-      const profile = await Profile.findById(id);
+      const mail = await Subscriber.findById(email);
 
-      res.status(200).json(profile);
+      res.status(200).json(mail);
   } catch (error) {
       res.status(404).json({ message: error.message });
   }
