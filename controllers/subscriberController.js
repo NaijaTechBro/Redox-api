@@ -197,5 +197,7 @@ module.exports = {
     sendAllUser,
     subscribers,
     download,
-    sendSinglemail
+    sendSinglemail,
+    getEmail,
+    getEmails
 }; 

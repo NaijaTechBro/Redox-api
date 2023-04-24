@@ -3,7 +3,9 @@ const {
     subscribers,
     download,
     sendAllUser,
-    sendSinglemail
+    sendSinglemail,
+    getEmail,
+    getEmails
  } = require("../controllers/subscriberController");
 const {
     isAuthenticatedUser,
@@ -19,5 +21,9 @@ router.get("/download", download, isAuthenticatedUser, adminOnly);
 router.post("/send-email", sendSinglemail, isAuthenticatedUser, adminOnly);
 
 router.post("/send-emails", sendAllUser, isAuthenticatedUser, adminOnly);
+
+router.get("/get-mail", getEmail, isAuthenticatedUser, adminOnly);
+
+router.get("/get-mails", getEmails, isAuthenticatedUser, adminOnly);
 
 module.exports = router;
