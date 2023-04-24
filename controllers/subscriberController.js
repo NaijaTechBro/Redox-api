@@ -113,7 +113,7 @@ const SendSinglemail = asyncHandler(async (req, res) => {
     .json({ message: 'Subscriber not found!'});
   }
 
-          //send waitlist mail
+          //send mail template
     const sent_from = "Redox Trading <hello@redox.com.ng>";
 
     try {
