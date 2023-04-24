@@ -100,7 +100,7 @@ const subscribers = asyncHandler(async (req, res) => {
 
 // Send email to a single user
 const sendSinglemail = asyncHandler(async (req, res) => {
-  const { subject, send_to, reply_to, template, url } = req.body;
+  const { subject, send_to, reply_to, template } = req.body;
   if (!subject || !send_to || !reply_to || !template) {
     res.status(400).send('Missing automated email parameter');
   }
