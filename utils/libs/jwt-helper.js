@@ -2,14 +2,14 @@ const JWT = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const secret = process.env.PAYERCOINS_ACCESS_TOKEN_SECRET;
+const secret = process.env.REDOX_ACCESS_TOKEN_SECRET;
 console.log(secret, 'SECRET FROM ENV')
 
 module.exports = {
   signAccessToken: (data) => {
     const payload = data;
     const options = {
-      expiresIn: process.env.PAYERCOINS_ACCESS_TOKEN_SECRET_EXPIRES_IN,
+      expiresIn: process.env.REDOX_ACCESS_TOKEN_SECRET_EXPIRES_IN,
       // issuer: 'payercoins',
       // audience: '', // TODO: add audience and issuer
     };
