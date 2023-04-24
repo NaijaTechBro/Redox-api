@@ -15,16 +15,16 @@ const createblog = asyncHandler (async (req, res) => {
     } catch (error) {
         res.status(409).json(error.message)
     }})
+
     // Get a blog
     const getBlog = asyncHandler(async (req, res) => {
         const { id } = req.params;
 
         try {
             const blog = await Blog.findById(id);
-
-            res.status(404)
+            res.status(200).json(blog);
         } catch (error) {
-            
+            res.status(404).json({ message: "Blog id does not exist"})
         }
     })
 // update blog
