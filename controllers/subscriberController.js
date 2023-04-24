@@ -141,5 +141,5 @@ const SendSinglemail = asyncHandler(async (req, res) => {
 module.exports = {
     Subscribers,
     DownloadSubscribers,
-    // SendSinglemail,
+    SendSinglemail,
 }; 
