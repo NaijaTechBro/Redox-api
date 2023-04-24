@@ -5,7 +5,7 @@ const Excel = require('exceljs');
 const sendEmail = require("../utils/sendEmail");
 
 
-const Subscribers = asyncHandler(async (req, res) => {
+const subscribers = asyncHandler(async (req, res) => {
 
     const { email, name } = req.body;
 
@@ -64,7 +64,7 @@ const Subscribers = asyncHandler(async (req, res) => {
 
 // Download all email via excel
 
-    const DownloadSubscribers = asyncHandler (async (req, res) => {
+    const download = asyncHandler (async (req, res) => {
 
       Subscriber.find().then(async (objs) => {
         let subscribers = [];
@@ -99,7 +99,7 @@ const Subscribers = asyncHandler(async (req, res) => {
 
 
 // Send email to a single user
-const SendSinglemail = asyncHandler(async (req, res) => {
+const sendSinglemail = asyncHandler(async (req, res) => {
   const { subject, send_to, reply_to, template, url } = req.body;
   if (!subject || !send_to || !reply_to || !template) {
     res.status(400).send('Missing automated email parameter');
@@ -172,7 +172,8 @@ const sendAllUser = asyncHandler (async (req, res) => {
 
 
 module.exports = {
-    Subscribers,
-    DownloadSubscribers,
-    SendSinglemail,
+    sendAllUser,
+    subscribers,
+    download,
+    sendSinglemail
 }; 
