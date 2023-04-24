@@ -75,7 +75,7 @@ module.exports = {
     isAuthenticatedUser,
     adminOnly,
     verifiedOnly,
-    businessOnly,
-    clientOnly,
+    // businessOnly,
+    // clientOnly,
     // authorizeRoles,
 }

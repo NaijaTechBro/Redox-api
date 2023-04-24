@@ -60,6 +60,9 @@ const subscribers = asyncHandler(async (req, res) => {
 
 });
 
+// Get all email
+
+// Get An email
 
 
 // Download all email via excel
