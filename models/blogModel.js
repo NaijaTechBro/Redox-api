@@ -19,6 +19,9 @@ const blogSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    link: {
+        type: String
+    },
     readingTime: {
         type: String,
     },
