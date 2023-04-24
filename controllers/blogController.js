@@ -88,5 +88,8 @@ const createblog = asyncHandler (async (req, res) => {
 module.exports = {
     createblog,
     getBlog,
-    getBlogs
+    getBlogs,
+    updateBlog,
+    deleteBlog,
+    getBlogsByUser
 }
