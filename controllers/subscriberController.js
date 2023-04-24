@@ -98,40 +98,40 @@ const Subscribers = asyncHandler(async (req, res) => {
     });
 
 
-// Send email to a single user
-const SendSinglemail = asyncHandler(async (req, res) => {
-  const { subject, send_to, reply_to, template, url } = req.body;
-  if (!subject || !send_to || !reply_to || !template) {
-    res.status(400).send('Missing automated email parameter');
-  }
+// // Send email to a single user
+// const SendSinglemail = asyncHandler(async (req, res) => {
+//   const { subject, send_to, reply_to, template, url } = req.body;
+//   if (!subject || !send_to || !reply_to || !template) {
+//     res.status(400).send('Missing automated email parameter');
+//   }
 
-  // Get user
-  const user = await Subscriber.findOne({ email: send_to});
+//   // Get user
+//   const user = await Subscriber.findOne({ email: send_to});
 
-  if (!user) {
-    res.status(404)
-    .json({ message: 'Subscriber not found!'});
-  }
+//   if (!user) {
+//     res.status(404)
+//     .json({ message: 'Subscriber not found!'});
+//   }
 
-          //send waitlist mail
-    const sent_from = "Redox Trading <hello@redox.com.ng>";
+//           //send waitlist mail
+//     const sent_from = "Redox Trading <hello@redox.com.ng>";
 
-    try {
-        await sendEmail(
-        subject,
-        send_to,
-        sent_from,
-        reply_to,
-        template,
-    );
-    res
-        .status(200)
-        .json({ success: true, message: "Email Sent Successfully" });
-    } catch (error) {
-    res.status(500);
-    throw new Error("Email not sent, please try again");
-    }
-});
+//     try {
+//         await sendEmail(
+//         subject,
+//         send_to,
+//         sent_from,
+//         reply_to,
+//         template,
+//     );
+//     res
+//         .status(200)
+//         .json({ success: true, message: "Email Sent Successfully" });
+//     } catch (error) {
+//     res.status(500);
+//     throw new Error("Email not sent, please try again");
+//     }
+// });
 
 
 
