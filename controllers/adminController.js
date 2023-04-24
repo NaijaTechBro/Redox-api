@@ -1,4 +1,6 @@
 const asyncHandler = requrie("express-async-handler");
+const catchAsync = require("../utils/libs/catchAsync");
+const path = require("path");
 const Admin = require("../models/adminModel");
 
 
