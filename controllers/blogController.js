@@ -5,13 +5,13 @@ const Blog = require("../models/blogModel");
 // create blog
 const createblog = asyncHandler (async (req, res) => {
 
-    const { title, subtitle, image, body, link } = req.body;
+    const blog = { title, subtitle, image, body, link } = req.body;
 
-    const newBlog = new Blog({ ...blogModel, createdAt: new Date().toISOString() })
+    const newBlog = new Blog({ ...blog, createdAt: new Date().toISOString() })
     
     try {
-        await newColor.save()
-        res.status(201).json(newColor)
+        await newBlog.save()
+        res.status(201).json(newBlog)
     } catch (error) {
         res.status(409).json(error.message)
     }})
