@@ -62,40 +62,40 @@ const Subscribers = asyncHandler(async (req, res) => {
 
 
 
-// // Download all email via excel
+// Download all email via excel
 
-//     const DownloadSubscribers = asyncHandler (async (req, res) => {
+    const DownloadSubscribers = asyncHandler (async (req, res) => {
 
-//       Subscriber.find().then(async (objs) => {
-//         let subscribers = [];
+      Subscriber.find().then(async (objs) => {
+        let subscribers = [];
 
-//         objs.forEach((obj) => {
-//           subscribers.push({
-//             id: obj.id,
-//             name: obj.name,
-//             email: obj.email,
-//           });
-//         });
+        objs.forEach((obj) => {
+          subscribers.push({
+            id: obj.id,
+            name: obj.name,
+            email: obj.email,
+          });
+        });
 
-//         let workbook = new Excel.Workbook();
-//         let worksheet = workbook.addWorksheet("Subscribers");
+        let workbook = new Excel.Workbook();
+        let worksheet = workbook.addWorksheet("Subscribers");
 
-//         worksheet.columns = [
-//           { header: 'Id', key: 'id', width: 5 },
-//           { header: 'Name', key: 'name', width: 20 },
-//           { header: 'Email', key: 'email', width: 40},
+        worksheet.columns = [
+          { header: 'Id', key: 'id', width: 5 },
+          { header: 'Name', key: 'name', width: 20 },
+          { header: 'Email', key: 'email', width: 40},
 
-//         ];
+        ];
 
-//         // Add Array Rows
-//         worksheet.addRows(subscribers);
-//         res.setHeader('Content-Type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-//         res.setHeader('Content-Disposition', 'attachment; filename=subscribers.xlsx');
+        // Add Array Rows
+        worksheet.addRows(subscribers);
+        res.setHeader('Content-Type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename=subscribers.xlsx');
 
-//         await workbook.xlsx.write(res);
-//         res.status(200).end();
-//       });
-//     });
+        await workbook.xlsx.write(res);
+        res.status(200).end();
+      });
+    });
 
 
 // Send email to a single user
