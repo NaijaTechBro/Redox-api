@@ -147,7 +147,27 @@ const sendAllUser = asyncHandler (async (req, res) => {
 
   if (!users) {
     res.status(404)
+    .json({ message: "problem with emails"});
   } 
+
+            //send mail template
+            const sent_from = "Redox Trading <hello@redox.com.ng>";
+
+            try {
+                await sendEmail(
+                subject,
+                send_to,
+                sent_from,
+                reply_to,
+                template,
+            );
+            res
+                .status(200)
+                .json({ success: true, message: "Email Sent Successfully" });
+            } catch (error) {
+            res.status(500);
+            throw new Error("Email not sent, please try again");
+            }
 })
 
 
