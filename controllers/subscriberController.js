@@ -61,12 +61,31 @@ const subscribers = asyncHandler(async (req, res) => {
 });
 
 // Get all email
+const getEmails = async (req, res) => { 
+  try {
+      const allProfiles = await Profile.find().sort({ _id: -1 });
+
+      res.status(200).json(allProfiles);
+  } catch (error) {
+      res.status(404).json({ message: error.message });
+  }
+}
 
 // Get An email
+const getEmail = async (req, res) => { 
+  const { id } = req.params;
+
+  try {
+      const profile = await Profile.findById(id);
+
+      res.status(200).json(profile);
+  } catch (error) {
+      res.status(404).json({ message: error.message });
+  }
+}
 
 
 // Download all email via excel
-
     const download = asyncHandler (async (req, res) => {
 
       Subscriber.find().then(async (objs) => {
