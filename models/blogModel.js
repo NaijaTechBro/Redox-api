@@ -8,15 +8,16 @@ const blogSchema = mongoose.Schema({
     subtitle: {
         type: String
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Subcriber"
+    },
     image: {
         type: String,
     },
     body: {
         type: String,
         required: true
-    },
-    quote: {
-        type: String,
     },
     readingTime: {
         type: String,
@@ -29,6 +30,9 @@ const blogSchema = mongoose.Schema({
         type: Date, 
         default: Date.now 
     },
-})
+},
+{
+    timestamps: true,
+});
 
 module.exports = mongoose.model("Blog", blogSchema);
