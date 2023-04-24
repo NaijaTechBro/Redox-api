@@ -1,9 +1,9 @@
 const express = require("express");
-const { Subscribers, downloadSubscribers } = require("../controllers/subscriberController");
+const { Subscribers, DownloadSubscribers } = require("../controllers/subscriberController");
 const router = express.Router();
 
 router.post("/subscriber", Subscribers);
 
-router.get("/download-subscribers", downloadSubscribers);
+router.get("/download-subscribers", DownloadSubscribers);
 
 module.exports = router;

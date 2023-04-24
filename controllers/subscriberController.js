@@ -62,39 +62,84 @@ const Subscribers = asyncHandler(async (req, res) => {
 
 
 
-// Get all email via excel
-const downloadSubscribers = asyncHandler (async (req, res) => {
-  Waitlist.find({}, (err, subscribers) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send(err);
-    }
-    const workbook = new Excel.Workbook();
-    const worksheet = workbook.addWorksheet('Subscribers');
-    worksheet.columns = [
-      { header: 'Name', key: 'name', width: 20 },
-      { header: 'Email', key: 'email', width: 40 }
-    ];
-    subscribers.forEach(subscriber => {
-      worksheet.addRow({ name: subscriber.name, email: subscriber.email });
-    });
-    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=subscribers.xlsx');
-    workbook.xlsx.write(res)
-      .then(() => {
-        res.end();
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).send(err);
-      });
-  });
-});
+// // Download all email via excel
+
+//     const DownloadSubscribers = asyncHandler (async (req, res) => {
+
+//       Subscriber.find().then(async (objs) => {
+//         let subscribers = [];
+
+//         objs.forEach((obj) => {
+//           subscribers.push({
+//             id: obj.id,
+//             name: obj.name,
+//             email: obj.email,
+//           });
+//         });
+
+//         let workbook = new Excel.Workbook();
+//         let worksheet = workbook.addWorksheet("Subscribers");
+
+//         worksheet.columns = [
+//           { header: 'Id', key: 'id', width: 5 },
+//           { header: 'Name', key: 'name', width: 20 },
+//           { header: 'Email', key: 'email', width: 40},
+
+//         ];
+
+//         // Add Array Rows
+//         worksheet.addRows(subscribers);
+//         res.setHeader('Content-Type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+//         res.setHeader('Content-Disposition', 'attachment; filename=subscribers.xlsx');
+
+//         await workbook.xlsx.write(res);
+//         res.status(200).end();
+//       });
+//     });
 
 
-// Send email to a user
+// // Send email to a single user
+// const SendSinglemail = asyncHandler(async (req, res) => {
+//   const { subject, send_to, reply_to, template, url } = req.body;
+//   if (!subject || !send_to || !reply_to || !template) {
+//     res.status(400).send('Missing automated email parameter');
+//   }
+
+//   // Get user
+//   const user = await Subscriber.findOne({ email: send_to});
+
+//   if (!user) {
+//     res.status(404)
+//     .json({ message: 'Subscriber not found!'});
+//   }
+
+//           //send waitlist mail
+//     const sent_from = "Redox Trading <hello@redox.com.ng>";
+
+//     try {
+//         await sendEmail(
+//         subject,
+//         send_to,
+//         sent_from,
+//         reply_to,
+//         template,
+//     );
+//     res
+//         .status(200)
+//         .json({ success: true, message: "Email Sent Successfully" });
+//     } catch (error) {
+//     res.status(500);
+//     throw new Error("Email not sent, please try again");
+//     }
+// });
+
+
+
 // send email to all users
+
+
 module.exports = {
     Subscribers,
-    downloadSubscribers
-};
+    // DownloadSubscribers,
+    // SendSinglemail,
+}; 
