@@ -1,4 +1,7 @@
-const asyncHandler = requrie("express-async-handler")
+const asyncHandler = requrie("express-async-handler");
+const Admin = require("../models/adminModel");
+
+
 
 
     const createSuperAdmin = asyncHandler(async (req, res, next) => {
@@ -45,3 +48,7 @@ const asyncHandler = requrie("express-async-handler")
     }
   
     });
+
+    module.exports = {
+        createSuperAdmin
+    }
