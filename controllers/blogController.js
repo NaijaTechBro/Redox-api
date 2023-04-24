@@ -5,7 +5,7 @@ const Blog = require("../models/blogModel");
 // create blog
 const createblog = asyncHandler (async (req, res) => {
 
-    const blog = { title, subtitle, image, body, link } = req.body;
+    const blog = { title, subtitle, image, body, link, category } = req.body;
 
     const newBlog = new Blog({ ...blog, createdAt: new Date().toISOString() })
     
