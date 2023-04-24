@@ -18,11 +18,11 @@ router.post("/subscriber", subscribers);
 
 router.get("/download", download, isAuthenticatedUser, adminOnly);
 
-router.post("/send-email", sendSinglemail, isAuthenticatedUser, adminOnly);
+router.post("/send-email/:email", sendSinglemail, isAuthenticatedUser, adminOnly);
 
 router.post("/send-emails", sendAllUser, isAuthenticatedUser, adminOnly);
 
-router.get("/get-mail", getEmail, isAuthenticatedUser, adminOnly);
+router.get("/get-mail/:email", getEmail, isAuthenticatedUser, adminOnly);
 
 router.get("/get-mails", getEmails, isAuthenticatedUser, adminOnly);
 

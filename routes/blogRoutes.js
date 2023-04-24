@@ -23,6 +23,6 @@ router.patch ("/update-blog/:id", updateBlog, adminOnly);
 router.get ("/get-blog/:id", getBlog, adminOnly);
 router.get ("/get-blogs", getBlogs, adminOnly);
 router.get ("/getBlogByUser", getBlogsByUser, adminOnly);
-router
+router.delete ("/delete-blog/:id", deleteBlog, adminOnly);
 
 module.exports = router;
