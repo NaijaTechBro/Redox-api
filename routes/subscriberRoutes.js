@@ -22,7 +22,7 @@ router.post("/send-email/:email", sendSinglemail, isAuthenticatedUser, adminOnly
 
 router.post("/send-emails", sendAllUser, isAuthenticatedUser, adminOnly);
 
-router.get("/get-mail/:email", getEmail, isAuthenticatedUser, adminOnly);
+router.get("/get-mail/:id", getEmail, isAuthenticatedUser, adminOnly);
 
 router.get("/get-mails", getEmails, isAuthenticatedUser, adminOnly);
 

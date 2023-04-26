@@ -71,18 +71,17 @@ const getEmails = async (req, res) => {
   }
 }
 
-// Get An email
-const getEmail = async (req, res) => { 
-  const email = req.body;
+    // Get an Email
+    const getEmail = asyncHandler(async (req, res) => {
+      const { id } = req.params;
 
-  try {
-      const mail = await Subscriber.findById(email);
-
-      res.status(200).json(mail);
-  } catch (error) {
-      res.status(404).json({ message: error.message });
-  }
-}
+      try {
+          const mail = await Subscriber.findById(id);
+          res.status(200).json(mail);
+      } catch (error) {
+          res.status(404).json({ message: "Subscriber id does not exist"})
+      }
+  })
 
 
 // Download all email via excel
