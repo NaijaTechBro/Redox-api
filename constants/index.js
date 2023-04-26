@@ -1,0 +1,1 @@
+ROL_SUPERADMIN='SuperAdmin'
