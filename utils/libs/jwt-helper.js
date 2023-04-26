@@ -10,7 +10,7 @@ module.exports = {
     const payload = data;
     const options = {
       expiresIn: process.env.REDOX_ACCESS_TOKEN_SECRET_EXPIRES_IN,
-      // issuer: 'payercoins',
+      // issuer: 'Redox Trading',
       // audience: '', // TODO: add audience and issuer
     };
     console.log(secret, 'SCERET USED FOR SIGNING THE TOKEN')
