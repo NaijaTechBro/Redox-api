@@ -184,7 +184,7 @@ const sendAllUser = asyncHandler (async (req, res) => {
             );
             res
                 .status(200)
-                .json({ success: true, message: "Email Sent Successfully" });
+                .json({ success: true, message: "Emails Sent Successfully" });
             } catch (error) {
             res.status(500);
             throw new Error("Email not sent, please try again");
