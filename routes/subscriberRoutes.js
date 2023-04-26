@@ -14,7 +14,7 @@ const {
 } = require("../middleware/authMiddleware");
 const router = express.Router();
 
-router.post("/subscriber", subscribers);
+router.post("/create-subscriber", subscribers);
 
 router.get("/download", download, isAuthenticatedUser, adminOnly);
 
