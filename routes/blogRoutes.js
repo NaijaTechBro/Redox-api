@@ -19,7 +19,7 @@ const {
 
 
 router.post ("/create-blog", createblog, adminOnly);
-router.patch ("/update-blog/:id", updateBlog, adminOnly);
+router.put ("/update-blog/:id", updateBlog, adminOnly);
 router.get ("/get-blog/:id", getBlog, adminOnly);
 router.get ("/get-blogs", getBlogs, adminOnly);
 router.get ("/getBlogByUser", getBlogsByUser, adminOnly);
