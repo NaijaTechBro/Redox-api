@@ -156,6 +156,9 @@ const sendSinglemail = asyncHandler(async (req, res) => {
 
 
 
+
+
+
 // send email to all users
 const sendAllUser = asyncHandler (async (req, res) => {
   const { subject, send_to, reply_to, template } = req.body;
@@ -164,31 +167,39 @@ const sendAllUser = asyncHandler (async (req, res) => {
   }
 
   // Get Users
-  const users = await Subscriber.find({ email: send_to});
+  const users = await Subscriber.find({ email});
 
   if (!users) {
     res.status(404)
-    .json({ message: "problem with emails"});
+    .json({ message: "user"});
   } 
+    else {
+      users.forEach(async function(user) {
+ //send mail template
+ const sent_from = "Redox Trading <hello@redox.com.ng>";
 
-            //send mail template
-            const sent_from = "Redox Trading <hello@redox.com.ng>";
+ try {
+     await sendEmail(
+     subject,
+     send_to,
+     sent_from,
+     reply_to,
+     template,
+ );
+ res
+     .status(200)
+     .json({ success: true, message: "Emails Sent Successfully" });
+ } catch (error) {
+ res.status(500);
+ throw new Error("Email not sent, please try again");
+ }
+      }
+      
+      )
 
-            try {
-                await sendEmail(
-                subject,
-                send_to,
-                sent_from,
-                reply_to,
-                template,
-            );
-            res
-                .status(200)
-                .json({ success: true, message: "Emails Sent Successfully" });
-            } catch (error) {
-            res.status(500);
-            throw new Error("Email not sent, please try again");
-            }
+           
+    }
+
 })
 
 

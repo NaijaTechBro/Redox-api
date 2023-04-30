@@ -1,30 +1,32 @@
 const mongoose = require("mongoose")
 
-const blogSchema = mongoose.Schema({
+const postSchema = mongoose.Schema({
     title: {
         type: String,
         required: [true, "Please add your title"]
     },
-    subtitle: {
-        type: String
+    summary: {
+        type: String,
+        trim: true,
+        minLength: 200,
     },
     category: {
         type: String,
-        required: [true, "Please add a category"]
+        required: [true, "Please add a category"],
+        default: "CryptoCurrency",
+        enum: [CryptoCurrency, Economics, Forex]
+        
     },
-    user: {
+    author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Subcriber"
     },
     image: {
         type: String,
     },
-    body: {
+    content: {
         type: String,
         required: true
-    },
-    link: {
-        type: String
     },
     readingTime: {
         type: String,
@@ -42,4 +44,4 @@ const blogSchema = mongoose.Schema({
     timestamps: true,
 });
 
-module.exports = mongoose.model("Blog", blogSchema);
+module.exports = mongoose.model("Post", postSchema);
