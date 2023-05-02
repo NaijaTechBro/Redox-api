@@ -8,13 +8,13 @@ const postSchema = mongoose.Schema({
     summary: {
         type: String,
         trim: true,
-        minLength: 200,
+        minLength: 50,
     },
     category: {
         type: String,
-        required: [true, "Please add a category"],
+        // required: [true, "Please add a category"],
         default: "CryptoCurrency",
-        enum: [CryptoCurrency, Economics, Forex]
+        enum: ["CryptoCurrency", "Economics", "Forex"]
         
     },
     author: {
