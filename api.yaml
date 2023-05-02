@@ -1,0 +1,778 @@
+openapi: 3.0.0
+info:
+  title: Redox Trading API
+  description: 'Redox Trading API'
+  contact:
+    name: Developer
+    url: https://www.redox.com.ng/developer
+    email: hello@redox.com.ng
+  version: '0.1'
+servers:
+- url: http://localhost:7890
+  variables: {}
+- url: https://redoxapi-onrender.com
+  variables: {}
+paths:
+  /api/v1/post/create-post:
+    post:
+      tags:
+      - Post
+      summary: create-post
+      description: ''
+      operationId: create-post
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - title
+              - summary
+              - image
+              - content
+              - category
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: you
+                summary:
+                  type: string
+                  example: gggg ggg ggg gggfjb sduhvus dvjhjlhv hghg gfjkf fjhnj jncvkn vjknkjn vcckjnkjnvcc jnhkjnkjkjkjkjkjkjkj kjnkjkjkjik cvknkvkjv vcknvkkjnv vikjkjkjn usdvj
+                image:
+                  type: string
+                  example: hh
+                content:
+                  type: string
+                  example: hh sf ujuh wfrdfc jucu
+                category:
+                  type: string
+                  example: Economics
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/post/update-post/6450b451756267b547490e48:
+    patch:
+      tags:
+      - Post
+      summary: update-post
+      description: ''
+      operationId: update-post
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - title
+              - summary
+              - image
+              - content
+              - category
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Bitcoin
+                summary:
+                  type: string
+                  example: fff
+                image:
+                  type: string
+                  example: hh
+                content:
+                  type: string
+                  example: hh sf ujuh wfrdfc jucu
+                category:
+                  type: string
+                  example: CryptoCurrency
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/post/get-post/6450b451756267b547490e48:
+    get:
+      tags:
+      - Post
+      summary: get-post
+      description: ''
+      operationId: get-post
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/post/get-posts:
+    get:
+      tags:
+      - Post
+      summary: get-posts
+      description: ''
+      operationId: get-posts
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/post/getPostByUser:
+    get:
+      tags:
+      - Post
+      summary: getPostByUser
+      description: ''
+      operationId: getPostByUser
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/post/delete-post/6450b451756267b547490e48:
+    delete:
+      tags:
+      - Post
+      summary: delete post
+      description: ''
+      operationId: deletepost
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/subscriber/get-mails:
+    get:
+      tags:
+      - Subscriber
+      summary: get mails
+      description: ''
+      operationId: getmails
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/subscriber/create-subscriber:
+    post:
+      tags:
+      - Subscriber
+      summary: create-subscriber
+      description: ''
+      operationId: create-subscriber
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - email
+              - name
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: bakisodiq@gmail.com
+                name:
+                  type: string
+                  example: baki
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/subscriber/get-mail/6448c6e43d28891dba14a8fc:
+    get:
+      tags:
+      - Subscriber
+      summary: get mail
+      description: ''
+      operationId: getmail
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/subscriber/send-email/:email:
+    post:
+      tags:
+      - Subscriber
+      summary: send-email
+      description: ''
+      operationId: send-email
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - subject
+              - send_to
+              - reply_to
+              - template
+              type: object
+              properties:
+                subject:
+                  type: string
+                  example: jjj
+                send_to:
+                  type: string
+                  example: bakisodiq@gmail.com
+                reply_to:
+                  type: string
+                  example: dd
+                template:
+                  type: string
+                  example: dd
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/subscriber/send-emails:
+    post:
+      tags:
+      - Subscriber
+      summary: send-emails
+      description: ''
+      operationId: send-emails
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - subject
+              - send_to
+              - reply_to
+              - template
+              type: object
+              properties:
+                subject:
+                  type: string
+                  example: jjj
+                send_to:
+                  type: string
+                  example: bakisodiq@gmail.com
+                reply_to:
+                  type: string
+                  example: dd
+                template:
+                  type: string
+                  example: dd
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/subscriber/download:
+    get:
+      tags:
+      - Subscriber
+      summary: download
+      description: ''
+      operationId: download
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/create:
+    post:
+      tags:
+      - Admin
+      summary: Create super admin
+      description: ''
+      operationId: Createsuperadmin
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - firstName
+              - lastName
+              - email
+              - password
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  example: John
+                lastName:
+                  type: string
+                  example: Doe
+                email:
+                  type: string
+                  example: bakisodiq@gmail.com
+                password:
+                  type: string
+                  example: Test@124
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/email/verify:
+    get:
+      tags:
+      - Admin
+      summary: verify email
+      description: ''
+      operationId: verifyemail
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/email/verify/resend:
+    put:
+      tags:
+      - Admin
+      summary: resendverify email
+      description: ''
+      operationId: resendverifyemail
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - email
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: bakisodiq@gmail.com
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/login:
+    post:
+      tags:
+      - Admin
+      summary: login
+      description: ''
+      operationId: login
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/logout:
+    get:
+      tags:
+      - Admin
+      summary: logOut
+      description: ''
+      operationId: logOut
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/forgotPassword:
+    post:
+      tags:
+      - Admin
+      summary: forgot password
+      description: ''
+      operationId: forgotpassword
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - email
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: bakisodiq@gmail.com
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/resetPassword/:
+    put:
+      tags:
+      - Admin
+      summary: reset password
+      description: ''
+      operationId: resetpassword
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/updatePassword:
+    patch:
+      tags:
+      - Admin
+      summary: update password
+      description: ''
+      operationId: updatepassword
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/updateUser:
+    patch:
+      tags:
+      - Admin
+      summary: update User
+      description: ''
+      operationId: updateUser
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          enum:
+          - application/x-www-form-urlencoded
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/profile/:id:
+    get:
+      tags:
+      - Admin
+      summary: get Profile
+      description: ''
+      operationId: getProfile
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /api/v1/admin/loggedIn:
+    get:
+      tags:
+      - Admin
+      summary: logIn status
+      description: ''
+      operationId: logInstatus
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+  /:
+    get:
+      summary: Home
+      description: ''
+      operationId: Home
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
+tags:
+- name: Post
+  description: ''
+- name: Subscriber
+  description: ''
+- name: Admin
+  description: ''
