@@ -1,0 +1,771 @@
+_type: export
+__export_format: 4
+__export_date: 2023-05-02T07:06:01.393Z
+__export_source: insomnia.desktop.app:v2023.1.0
+resources:
+  - _id: req_cbeb8a6cd542401097e844d735cc824c
+    parentId: wrk_1830e2d5a72f4c5bb0ee18982dade7f9
+    modified: 1682490849763
+    created: 1682490720327
+    url: http://localhost:7890
+    name: Home
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1682490720327
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_1830e2d5a72f4c5bb0ee18982dade7f9
+    parentId: null
+    modified: 1682490681774
+    created: 1682490681774
+    name: Redox Trading API
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_b4526a5529d249d6982417c0be05c69d
+    parentId: fld_608ce5740b3b4e5d8b1df2f12874088b
+    modified: 1683010788875
+    created: 1682491577882
+    url: http://localhost:7890/api/v1/post/create-post
+    name: create-post
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_49abcc19c21c46deb9ed2e308ab61edc
+          name: title
+          value: you
+          description: ""
+        - id: pair_945d596155f14cd585f859f929bf5b8b
+          name: summary
+          value: gggg ggg ggg gggfjb sduhvus dvjhjlhv hghg gfjkf fjhnj jncvkn vjknkjn
+            vcckjnkjnvcc jnhkjnkjkjkjkjkjkjkj kjnkjkjkjik cvknkvkjv vcknvkkjnv
+            vikjkjkjn usdvj
+          description: ""
+        - id: pair_dff103e08c914417868432e71ff3b0be
+          name: image
+          value: hh
+          description: ""
+        - id: pair_9e7fe3c24d954b31a30c59c601127e18
+          name: content
+          value: hh sf ujuh wfrdfc jucu
+          description: ""
+        - id: pair_2259c27394c44b23b589ae7ed87d3f44
+          name: category
+          value: Economics
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491577882
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_608ce5740b3b4e5d8b1df2f12874088b
+    parentId: wrk_1830e2d5a72f4c5bb0ee18982dade7f9
+    modified: 1683010165946
+    created: 1682490715960
+    name: Post
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1682490715960
+    _type: request_group
+  - _id: req_e9ae5d349515412181afd72376d20e86
+    parentId: fld_608ce5740b3b4e5d8b1df2f12874088b
+    modified: 1683010880751
+    created: 1682491743173
+    url: http://localhost:7890/api/v1/post/update-post/6450b451756267b547490e48
+    name: update-post
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_49abcc19c21c46deb9ed2e308ab61edc
+          name: title
+          value: Bitcoin
+          description: ""
+        - id: pair_945d596155f14cd585f859f929bf5b8b
+          name: summary
+          value: fff
+          description: ""
+        - id: pair_dff103e08c914417868432e71ff3b0be
+          name: image
+          value: hh
+          description: ""
+        - id: pair_9e7fe3c24d954b31a30c59c601127e18
+          name: content
+          value: hh sf ujuh wfrdfc jucu
+          description: ""
+        - id: pair_2259c27394c44b23b589ae7ed87d3f44
+          name: category
+          value: CryptoCurrency
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491226264
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_de7914a864e347e397f6e410f3a445f7
+    parentId: fld_608ce5740b3b4e5d8b1df2f12874088b
+    modified: 1683010765335
+    created: 1682491813843
+    url: http://localhost:7890/api/v1/post/get-post/6450b451756267b547490e48
+    name: get-post
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491050455
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_68a5651cc52c403899ef878356c70b52
+    parentId: fld_608ce5740b3b4e5d8b1df2f12874088b
+    modified: 1683010685728
+    created: 1682491865839
+    url: http://localhost:7890/api/v1/post/get-posts
+    name: get-posts
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682490962550.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_97e5f653162243019c43e1350369e372
+    parentId: fld_608ce5740b3b4e5d8b1df2f12874088b
+    modified: 1683010911147
+    created: 1682491904477
+    url: http://localhost:7890/api/v1/post/getPostByUser
+    name: getPostByUser
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682490918598.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_342476ba54234f42a87379467cc79edb
+    parentId: fld_608ce5740b3b4e5d8b1df2f12874088b
+    modified: 1683010941460
+    created: 1682491939873
+    url: http://localhost:7890/api/v1/post/delete-post/6450b451756267b547490e48
+    name: delete post
+    description: ""
+    method: DELETE
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682490896622.125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a28de6b14bd3445583326f1fc00ea515
+    parentId: fld_d5b83bbbb5f5448590c9b1b5a22afb1a
+    modified: 1682491107329
+    created: 1682490874646
+    url: http://localhost:7890/api/v1/subscriber/create-subscriber
+    name: create-subscriber
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_b95760f2c4494034ac59217878324737
+          name: email
+          value: bakisodiq@gmail.com
+          description: ""
+        - id: pair_77d7f500f8144c65ac68c4753df3a94d
+          name: name
+          value: baki
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682490874646
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_d5b83bbbb5f5448590c9b1b5a22afb1a
+    parentId: wrk_1830e2d5a72f4c5bb0ee18982dade7f9
+    modified: 1682490708165
+    created: 1682490708165
+    name: Subscriber
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1682490708165
+    _type: request_group
+  - _id: req_880287167851494696a5cb40e56d7b8f
+    parentId: fld_d5b83bbbb5f5448590c9b1b5a22afb1a
+    modified: 1682491422800
+    created: 1682491384986
+    url: http://localhost:7890/api/v1/subscriber/get-mails
+    name: get mails
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682490855356.125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a54bf4ec9412461793a526f0dc56c86e
+    parentId: fld_d5b83bbbb5f5448590c9b1b5a22afb1a
+    modified: 1682491478412
+    created: 1682491443015
+    url: http://localhost:7890/api/v1/subscriber/get-mail/6448c6e43d28891dba14a8fc
+    name: get mail
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682490845711.1875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_40480d0a917c436ab60f6ad5b74800cd
+    parentId: fld_d5b83bbbb5f5448590c9b1b5a22afb1a
+    modified: 1682491330475
+    created: 1682491186101
+    url: http://localhost:7890/api/v1/subscriber/send-email/:email
+    name: send-email
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_0e0890dc9cb54c18b20f1fc9f68189f2
+          name: subject
+          value: jjj
+          description: ""
+        - id: pair_bf360089da454a3f9bf2fb6d10d7bd98
+          name: send_to
+          value: bakisodiq@gmail.com
+          description: ""
+        - id: pair_c3b3f1eaf85749d3a0b75d52d73dbd45
+          name: reply_to
+          value: dd
+          description: ""
+        - id: pair_960102cfa4314c97898306bb7c2a25e8
+          name: template
+          value: dd
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682490836066.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_2b431b52bb1d4e2bade5f20dcfe905b8
+    parentId: fld_d5b83bbbb5f5448590c9b1b5a22afb1a
+    modified: 1682491512360
+    created: 1682491500692
+    url: http://localhost:7890/api/v1/subscriber/send-emails
+    name: send-emails
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_0e0890dc9cb54c18b20f1fc9f68189f2
+          name: subject
+          value: jjj
+          description: ""
+        - id: pair_bf360089da454a3f9bf2fb6d10d7bd98
+          name: send_to
+          value: bakisodiq@gmail.com
+          description: ""
+        - id: pair_c3b3f1eaf85749d3a0b75d52d73dbd45
+          name: reply_to
+          value: dd
+          description: ""
+        - id: pair_960102cfa4314c97898306bb7c2a25e8
+          name: template
+          value: dd
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682490816776.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_74faef778c2444b19e7107b42b0c38dd
+    parentId: fld_d5b83bbbb5f5448590c9b1b5a22afb1a
+    modified: 1682491156501
+    created: 1682491131855
+    url: http://localhost:7890/api/v1/subscriber/download
+    name: download
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682490797486.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5ce6ec348f1e48cdad4b1b88061346ea
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1683010213812
+    created: 1682492018112
+    url: http://localhost:7890/api/v1/admin/create
+    name: Create super admin
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_9c676495e07848bbbf114cb5616f49c2
+          name: firstName
+          value: b
+          description: ""
+        - id: pair_89566726a563476cadad284bb21b1dcf
+          name: lastName
+          value: h
+          description: ""
+        - id: pair_5b10c92314954ebc80c19a4f645ea5d0
+          name: email
+          value: bk@gmail.com
+          description: ""
+        - id: pair_77f0751e00f54869bc4cefd5369bf281
+          name: password
+          value: Atom@124
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682492018112
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_5a698386a1ed4d8d888479460f2dd1d2
+    parentId: wrk_1830e2d5a72f4c5bb0ee18982dade7f9
+    modified: 1682490698713
+    created: 1682490698713
+    name: Admin
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1682490698713
+    _type: request_group
+  - _id: req_049ae2292aad46af91ec87cb001f4cf6
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1682492284272
+    created: 1682492262427
+    url: http://localhost:7890/api/v1/admin/email/verify
+    name: verify email
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491797997
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_dbabf56edf484489a6cb3c322200a368
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1682493145508
+    created: 1682492303151
+    url: http://localhost:7890/api/v1/admin/email/verify/resend
+    name: resendverify email
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_4fdd56d76d41414795b6c971c488f2b3
+          name: email
+          value: bakisodiq@gmail.com
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491687939.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_69a240d3e29047bfa18661b52e03078f
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1682492346330
+    created: 1682492331945
+    url: http://localhost:7890/api/v1/admin/login
+    name: login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491632910.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_42f1683f17b14006a7cbf4372978f318
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1682492367555
+    created: 1682492358979
+    url: http://localhost:7890/api/v1/admin/logout
+    name: logOut
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491605396.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9060a9eb6d83489caf6ba73c89beb173
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1682493178714
+    created: 1682492385904
+    url: http://localhost:7890/api/v1/admin/forgotPassword
+    name: forgot password
+    description: ""
+    method: POST
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - id: pair_a2fc19d2cc9345298129dc67bea9dee1
+          name: email
+          value: bakisodiq@gmail.com
+          description: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491591639.1875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_95ff922ac8c24a888c275e118cee59a0
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1682492458705
+    created: 1682492433270
+    url: http://localhost:7890/api/v1/admin/resetPassword/
+    name: reset password
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491584760.5938
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8aac3631c8f3458ebdcc61042bfe0f5a
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1682492495455
+    created: 1682492480938
+    url: http://localhost:7890/api/v1/admin/updatePassword
+    name: update password
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491581321.2969
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f0d4ec4ebd534b488bff792f18d32817
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1682492521229
+    created: 1682492513857
+    url: http://localhost:7890/api/v1/admin/updateUser
+    name: update User
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491579601.6484
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b717253ba79a4c5c82ad9b7e98ca6e30
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1682493206961
+    created: 1682492542056
+    url: http://localhost:7890/api/v1/admin/profile/:id
+    name: get Profile
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491578741.8242
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b5eec2ef22f84803b6cf2cce623d49ed
+    parentId: fld_5a698386a1ed4d8d888479460f2dd1d2
+    modified: 1682492974459
+    created: 1682492964205
+    url: http://localhost:7890/api/v1/admin/loggedIn
+    name: logIn status
+    description: ""
+    method: GET
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params: []
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+    authentication: {}
+    metaSortKey: -1682491578311.912
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_125fb08692a01e3b4c35900c9ea63944cff626cb
+    parentId: wrk_1830e2d5a72f4c5bb0ee18982dade7f9
+    modified: 1682490681781
+    created: 1682490681781
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1682490681781
+    _type: environment
+  - _id: jar_125fb08692a01e3b4c35900c9ea63944cff626cb
+    parentId: wrk_1830e2d5a72f4c5bb0ee18982dade7f9
+    modified: 1682490681784
+    created: 1682490681784
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_31ed1773d2b9416ca6e24a1bd114930e
+    parentId: wrk_1830e2d5a72f4c5bb0ee18982dade7f9
+    modified: 1682490681775
+    created: 1682490681775
+    fileName: Redox Trading API
+    contents: ""
+    contentType: yaml
+    _type: api_spec
