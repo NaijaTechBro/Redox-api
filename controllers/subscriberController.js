@@ -137,7 +137,7 @@ const sendSinglemail = asyncHandler(async (req, res) => {
   }
 
           //send mail template
-    const sent_from = "Redox Trading <hello@redox.com.ng>";
+    const sent_from = "Redox Trading <insideredox@gmail.com>";
 
     try {
         await sendEmail(

@@ -5,3 +5,6 @@
 20230424	09:47:49	95038345-5524-4165-90e3-89e46de3785e	undefined: undefined	undefined	undefined
 20230424	09:50:49	4e76ea11-03a0-4cf0-9e53-0c4dabd011f4	undefined: undefined	undefined	undefined
 20230424	09:57:05	a37b4846-7fce-4ea3-9c9a-d8e81f20070b	undefined: undefined	undefined	undefined
+20230612	17:17:41	ef537efa-94a1-47de-b615-b4d534bdd13d	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230612	17:18:41	2378a961-7784-41c1-a276-f532aa3a6fa1	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230612	20:10:23	e1ac5a58-3a07-4ecf-ab5c-ec6a9c16c00c	undefined: ETIMEOUT	queryTxt	cluster0.2muryjl.mongodb.net
