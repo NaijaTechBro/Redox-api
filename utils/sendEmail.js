@@ -45,6 +45,9 @@ const sendEmail = async (
     subject: subject,
     // html: message,
     template, // String
+    headers: {
+      'X-Custom-Header' : 'Custom header'
+    },
     context: {
         name,
         link,
