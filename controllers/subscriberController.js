@@ -38,16 +38,18 @@ const subscribers = asyncHandler(async (req, res) => {
     //send waitlist mail
     const subject = " Welcome to Redox Trading Newsletter";
     const send_to = email;
-    const sent_from = "Redox Trading <hello@redox.com.ng>";
-    const reply_to = "no-reply@redox.com.ng";
-    const template = "subscriber";
+    const first_name = name;
+    const sent_from = "Redox Trading <insideredox@gmail.com>";
+    // const reply_to = "no-reply@redox.com.ng";
+    const template = "subscribe";
 
     try {
         await sendEmail(
         subject,
         send_to,
+        first_name,
         sent_from,
-        reply_to,
+        // reply_to,
         template,
     );
     res
