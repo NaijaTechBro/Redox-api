@@ -3,10 +3,6 @@ const mongoose = require("mongoose");
 const subscriberSchema = mongoose.Schema(
     {
         _id: mongoose.Schema.Types.ObjectId,
-        name: {
-            type: String,
-            required: [true, "Please add your name"]
-        },
         email: {
             type: String,
             required: [true, "Please add your email"],
