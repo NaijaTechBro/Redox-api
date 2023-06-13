@@ -30,6 +30,7 @@ const connectDB = require('./config/dbConn');
 const subscriberRoutes = require("./routes/subscriberRoutes");
 const postRoutes = require("./routes/postRoutes");
 const adminRoutes = require('./routes/adminRoutes');
+const newsletterRoutes = require('./routes/newsletterRoutes');
 
 // Connecting to Database Environments
 console.log(chalk.redBright(process.env.NODE_ENV));
@@ -69,6 +70,7 @@ app.use("/api/v1/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
 app.use("/api/v1/subscriber", subscriberRoutes);
 app.use("/api/v1/post", postRoutes);
 app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/newsletter", newsletterRoutes);
 
 
 // Routes
