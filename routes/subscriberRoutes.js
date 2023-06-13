@@ -5,7 +5,8 @@ const {
     sendAllUser,
     sendSinglemail,
     getEmail,
-    getEmails
+    getEmails,
+    subers
  } = require("../controllers/subscriberController");
 const {
     isAuthenticatedUser,
@@ -15,6 +16,7 @@ const {
 const router = express.Router();
 
 router.post("/create-subscriber", subscribers);
+router.post("/create-sub", subers);
 
 router.get("/download", download, isAuthenticatedUser, adminOnly);
 
