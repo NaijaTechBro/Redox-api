@@ -38,16 +38,14 @@ const subscribers = asyncHandler(async (req, res) => {
     //send waitlist mail
     const subject = " Welcome to Redox Trading Newsletter";
     const send_to = email;
-    const first_name = name;
     const sent_from = "Redox Trading <insideredox@gmail.com>";
     // const reply_to = "no-reply@redox.com.ng";
-    const template = "subscribe";
+    const template = "subscriber";
 
     try {
         await sendEmail(
         subject,
         send_to,
-        first_name,
         sent_from,
         // reply_to,
         template,
@@ -61,6 +59,63 @@ const subscribers = asyncHandler(async (req, res) => {
     }
 
 });
+
+
+
+const subers = asyncHandler(async (req, res) => {
+
+  const { email } = req.body;
+
+  // Validation
+  if  (!email) {
+      res.status(400);
+      throw new Error("Please add your email");
+  }
+
+  // Check if email exist
+  if (email) {
+      let user = await Subscriber.findOne({ email })
+
+  if (user) {
+      res.status(400).json({
+          message: 'You are already on our waitlist',
+          success: false,
+      })
+  }   else {
+      Subscriber.create({
+          _id: new mongoose.Types.ObjectId(),
+          email
+      })
+
+
+  }
+
+}
+  //send waitlist mail
+  const subject = "Welcome Onboard! Idan";
+  const send_to = email;
+  const sent_from = "Redox Trading <insideredox@gmail.com>";
+  // const reply_to = "no-reply@seemetracker.com";
+  const template = "subscriber";
+
+  try {
+      await sendEmail(
+      subject,
+      send_to,
+      sent_from,
+      // reply_to,
+      template,
+  );
+  res
+      .status(200)
+      .json({ success: true, message: "Waitlist Email Sent" });
+  } catch (error) {
+  res.status(500);
+  throw new Error("Email not sent, please try again");
+  }
+
+});
+
 
 // Get all email
 const getEmails = async (req, res) => { 
@@ -124,6 +179,8 @@ const getEmails = async (req, res) => {
 // Send email to a single user
 const sendSinglemail = asyncHandler(async (req, res) => {
   const { subject, send_to, reply_to, template } = req.body;
+
+  // validation
   if (!subject || !send_to || !reply_to || !template) {
     res.status(400).send('Missing automated email parameter');
   }
@@ -211,5 +268,6 @@ module.exports = {
     download,
     sendSinglemail,
     getEmail,
-    getEmails
+    getEmails,
+    subers,
 }; 
