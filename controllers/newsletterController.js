@@ -37,7 +37,7 @@ const newsletter = asyncHandler(async (req, res) => {
             // send newsletter mail
             const subject = "Welcome to Redox Trading Newsletter";
             const send_to = email;
-            const sent_from = "Redox Trading <insideredox@gmail.com>";
+            const sent_from = "Redox Trading <hello@seemetracker.com>";
             const reply_to = "no-reply@redox.com.ng";
             const template = "newsletter";
 
