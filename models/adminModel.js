@@ -4,15 +4,10 @@ const bcrypt = require('bcrypt');
 
 
 const adminSchema = new mongoose.Schema({
-  firstName: {
+  name: {
     type: String,
     lowercase: true,
-    required: [true, 'Please enter your First Name!'],
-  },
-  lastName: {
-    type: String,
-    lowercase: true,
-    required: [true, 'Please enter your Last Name!'],
+    required: [true, 'Please enter your Name!'],
   },
   email: {
     type: String,
