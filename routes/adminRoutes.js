@@ -21,12 +21,12 @@ const {
 
 // admin auth routes
 router.post('/create' , createSuperAdmin)
-router.get('/email/verify/:verificationToken', verifyEmail);
-router.put('/email/verify/resend', resendEmailVerification);
+router.patch('/email/verify/:verificationToken', verifyEmail);
+router.post('/email/verify/resend', resendEmailVerification);
 router.post('/login', login);
 router.get('/logout', logout);
 router.post('/forgotPassword', forgotPassword);
-router.put('/resetPassword/:resettoken',  resetPassword);
+router.patch('/resetPassword/:resettoken',  resetPassword);
 router.get('/loggedIn', isLoggedIn);
 
 // Protected routes
