@@ -83,9 +83,9 @@ process.env.NODE_ENV == 'development'
 
     try {
   
-          const { firstName, lastName, email, password } = req.body;
+          const { name, email, password } = req.body;
   
-          if (!firstName || !lastName || !email || !password) {
+          if (!name || !email || !password) {
             return next(new AppError('Please provide first name, last name, password, and email !', 400));
           }
   
@@ -97,8 +97,7 @@ process.env.NODE_ENV == 'development'
   
   
           const newUser = await Admin.create({
-            firstName,
-            lastName,
+            name,
             email,
             password,
             isVerified: true,
