@@ -12,9 +12,10 @@ const {
   isLoggedIn,
   forgotPassword,
   resetPassword,
-  updatePassword,
+  changePassword,
   getAdminProfile,
   updateUserProfile,
+  updatePassword,
 
 } = require('../controllers/adminController');
 
@@ -32,7 +33,7 @@ router.get('/loggedIn', isLoggedIn);
 // Protected routes
 
 // Current User Routes
-router.patch('/updatePassword', protect, updatePassword);
+router.patch('/updatePassword', updatePassword);
 router.get('/profile',  getAdminProfile);
 router.patch('/updateUser',  updateUserProfile);
 
