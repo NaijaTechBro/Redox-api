@@ -19,7 +19,6 @@ const {
 
 } = require('../controllers/adminController');
 
-
 // admin auth routes
 router.post('/create' , createSuperAdmin)
 router.patch('/email/verify/:verificationToken', verifyEmail);
