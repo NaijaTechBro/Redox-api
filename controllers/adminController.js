@@ -106,15 +106,17 @@ process.env.NODE_ENV == 'development'
   
           const subject = "Redox Trading Signup Successful! 🎉🙏";
           const send_to = email;
+          const first_name = name;
           const sent_from = "Redox Trading <hello@seemetracker.com>";
           const reply_to = "no-reply@redox.com.ng";
-          const template = "newsletter";
+          const template = "welcome";
 
           try {
             await sendEmail(
                 subject,
                 send_to,
                 sent_from,
+                first_name,
                 reply_to,
                 template,
             );
@@ -193,23 +195,32 @@ process.env.NODE_ENV == 'development'
   const token = signAccessToken(data);
   const verificationUrl = `${URL}/admin/auth/email/verify/?verification_token=${token}`;
 
-  ejs.renderFile(
-    path.join(__dirname, '../../views/email-template.ejs'), {
-      salutation: `Hello ${user.firstName}`,
-      body: `<p>Welcome, we're glad to have you 🎉🙏,\n </p>
-      <p>Kindly Click the link to verify your email \n <p> 
-      <a href=${verificationUrl}>Activate My Account</a>`,
-    },
-    async (err, data) => {
-        //use the data here as the mail body
-        const options = {
-          email: req.body.email,
-          subject: 'Signup Successful!',
-          message: data,
-        };
-        await sendEmail(options);
+   
+  const subject = "Verify your Email 🙏";
+  const send_to = email;
+  const link = verificationUrl;
+  const first_name = name;
+  const sent_from = "Redox Trading <hello@seemetracker.com>";
+  const reply_to = "no-reply@redox.com.ng";
+  const template = "verifyEmail";
+
+  try {
+    await sendEmail(
+        subject,
+        send_to,
+        sent_from,
+        link,
+        first_name,
+        reply_to,
+        template,
+    );
+    res
+        .status(200)
+        .json({ success: true, message: "'Signup Successful!." });
+    } catch (error) {
+        res.status(500);
+        throw new Error("Email not sent, please try again");
     }
-  );
 
   const dataInfo = { message: 'Verification email re-sent' };
   return successResMsg(res, 200, dataInfo);
