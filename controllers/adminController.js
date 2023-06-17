@@ -105,19 +105,28 @@ process.env.NODE_ENV == 'development'
             role: 'ROL-SUPERADMIN',
           });
   
-        const options = {
-          email: req.body.email,
-          subject: 'Signup Successful!',
-          message: `Welcome, we're glad to have you 🎉🙏, 
-                    Kindly Login`,
-        };
-  
-        await sendEmail(options);
-  
-        const dataInfo = { 
-          message: 'Hello, Super Admin account created!.' 
-        }; 
-         return successResMsg(res, 201, dataInfo);
+          const subject = "Redox Trading Signup Successful! 🎉🙏";
+          const send_to = email;
+          const sent_from = "Redox Trading <hello@seemetracker.com>";
+          const reply_to = "no-reply@redox.com.ng";
+          const template = "newsletter";
+
+          try {
+            await sendEmail(
+                subject,
+                send_to,
+                sent_from,
+                reply_to,
+                template,
+            );
+            res
+                .status(200)
+                .json({ success: true, message: "'Hello, Super Admin account created!." });
+            } catch (error) {
+                res.status(500);
+                throw new Error("Email not sent, please try again");
+            }
+
     } catch (error) {
       return next(new AppError(error, error.status));
     }
