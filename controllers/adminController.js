@@ -2,6 +2,7 @@ const catchAsync = require("../utils/libs/catchAsync");
 const path = require("path");
 const Admin = require("../models/adminModel");
 const AppError = require("../utils/libs/appError");
+const Token = require("../models/tokenModel");
 const crypto = require("crypto")
 const jwt = require("jsonwebtoken")
 const sendEmail = require("../utils/sendEmail")
@@ -10,7 +11,8 @@ const { successResMsg } = require("../utils/libs/response");
 const {
   signAccessToken,
   verifyAccessToken,
-} = require("../utils/libs/jwt-helper")
+} = require("../utils/libs/jwt-helper");
+const asyncHandler = require("express-async-handler");
 
 const URL = 
 process.env.NODE_ENV == 'development'
@@ -128,6 +130,22 @@ process.env.NODE_ENV == 'development'
                 throw new Error("Email not sent, please try again");
             }
 
+            if (user) {
+              const { _id, name, email, photo, phone, isVerified, role } = user;
+              res.status(201).json({
+                _id,
+                name,
+                email,
+                photo,
+                phone,
+                isVerified,
+
+              });
+            } else {
+              res.status(400);
+              throw new Error("Invalid user data");
+            }
+
     } catch (error) {
       return next(new AppError(error, error.status));
     }
@@ -199,7 +217,6 @@ process.env.NODE_ENV == 'development'
   const subject = "Verify your Email 🙏";
   const send_to = email;
   const link = verificationUrl;
-  const first_name = name;
   const sent_from = "Redox Trading <hello@seemetracker.com>";
   const reply_to = "no-reply@redox.com.ng";
   const template = "verifyEmail";
@@ -210,7 +227,6 @@ process.env.NODE_ENV == 'development'
         send_to,
         sent_from,
         link,
-        first_name,
         reply_to,
         template,
     );
@@ -303,112 +319,114 @@ process.env.NODE_ENV == 'development'
 
 
 // Forgot password
-  const forgotPassword = catchAsync(async (req, res, next) => {
+  const forgotPassword = asyncHandler(async (req, res) => {
   // Get User based on password provided
-  const user = await Admin.findOne({ email: req.body.email });
+  const { email } = req.body;
+  const user = await Admin.findOne({ email });
 
   if (!user) {
-    return next(
-      new AppError('There is no user with the provided email address', 404)
-    );
+    res.status(404);
+    throw new Error("Admin User does not exist");
   }
-  // Generate the random reset token
-  const resetToken = user.createPasswordResetToken();
-  await user.save({ validateBeforeSave: false });
+  
+  // Delete token if it exits in DB
+  let token = await Token.findOne({  userId: user._id });
+  if (token) {
+    await token.deleteOne();
+  }
+
+  
+  // Create Reste Token
+  let resetToken = crypto.randomBytes(32).toString("hex") + user._id;
+  console.log(resetToken);
+
+  // Hash token before saving to DB
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  // Save Token to DB
+  await new Token({
+    userId: user._id,
+    token: hashedToken,
+    createdAt: Date.now(),
+    expiresAt: Date.now() + 30 * (60 * 1000), // Thirty minutes
+  }).save();
+
+  // Construct Reset Url
+  const resetUrl = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
+  console.log(resetUrl);
+
+  // Reset Email
+  const subject = "Password Reset Request";
+  const send_to = user.email;
+  const sent_from = "Redox Trading <hello@seemetracker.com>";
+  const reply_to = "no-reply@redox.com.ng";
+  const template = "forgotPassword";
+  const name = user.name;
+  const link = resetUrl;
 
   try {
-    // Send token via user's email
-    const resetURL = `${URL}/auth/reset/resetPassword/?confirmationToken=${resetToken}`;
-
-    ejs.renderFile(
-      path.join(__dirname, '../../views/email-template.ejs'), {
-        salutation: `Hello ${user.firstName}`,
-        body: `<p>Forgot your password? \n </p>
-        <p>Kindly Click the link to reset your password: \n <p> 
-        <a href=${resetURL}>Reset my password</a>`,
-      },
-      async (err, data) => {
-          //use the data here as the mail body
-          const options = {
-            email: req.body.email,
-            subject: 'Password Reset!',
-            message: data,
-          };
-          await sendEmail(options);
-      }
+    await sendEmail(
+      subject,
+      send_to,
+      sent_from,
+      reply_to,
+      template,
+      name,
+      link
     );
-    
-    const dataInfo = { message: 'Password reset token sent!' };
-    return successResMsg(res, 200, dataInfo);
-
-  } catch (err) {
-    user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
-    user.save({ validateBeforeSave: false });
-
-    return next(new AppError('There was an error sending the email', 500));
+    res.status(200).json({ success: true, message: "Email Sent!!!" });
+  } catch (error) {
+    res.status(500);
+    throw new Error("Email not sent, please try again");
   }
 });
+
 
 // Reset Password
-  const resetPassword = catchAsync(async (req, res, next) => {
+const resetPassword = asyncHandler(async (req, res) => {
+  const { password } = req.body;
+  const { resetToken } = req.params;
 
-  const { resettoken: confirmationToken } = req.params;
-  // Get user based on token
+  // Hash token, then compare to Token in DB
   const hashedToken = crypto
-    .createHash('sha256')
-    .update(confirmationToken, 'utf8')
-    .digest('hex');
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
 
-    console.log(hashedToken);
-
-  const user = await Admin.findOne({
-    passwordResetToken: hashedToken,
-    passwordResetExpires: { $gt: Date.now() },
+  // Find Token in DB
+  const userToken = await Token.findOne({
+    token: hashedToken,
+    expiresAt: { $gt: Date.now() },
   });
 
-  // Check if token is still valid / not expired -- set new password
-  if (!user) {
-    return next(new AppError('Token is invalid or has expired', 400));
+  if (!userToken) {
+    res.status(404);
+    throw new Error("Invalid or Expired Token");
   }
 
-  user.password = req.body.password;
-  user.passwordResetToken = undefined;
-  user.passwordResetExpires = undefined;
+  // Find user and reset password
+  const user = await Admin.findOne({ _id: userToken.userId });
+  user.password = password;
+  await user.save();
 
-  await user.save(); // No need to turn off validator as it's required
-
-  // Update passwordChangedAt property in adminModel
-
-  // send a mail
-  ejs.renderFile(
-    path.join(__dirname, '../../views/email-template.ejs'), {
-      salutation: `Hello ${user.firstName}`,
-      body: `<p> You've successfully changed your password \n </p>
-      <p>If you didnt perfom this action, contact support immediately  \n <p> `,
-    },
-    async (err, data) => {
-        //use the data here as the mail body
-        const options = {
-          email: user.email,
-          subject: 'Password Reset Successfull!',
-          message: data,
-        };
-        await sendEmail(options);
-    }
-  );
-
-  // Log in user -- send JWT
-  createSendToken(user, 200, res);
+  res.status(200).json({
+    message: "Password Reset Successful, Please Login",
+  });
 });
 
+
+
+// // Updating password of a logged in admin user
 // Updating password of a logged in admin user
-const updatePassword = catchAsync(async (req, res, next) => {
+  const updatePassword = asyncHandler(async (req, res, next) => {
   // Get user from collection
   const user = await Admin.findById(req.user.id).select('+password');
 
   // Check if posted password is correct
-  if (!(await user.correctPassword(req.body.currentPassword, user.password))) {
+  if (!(await user.correctPassword(req.body.oldPassword, user.password))) {
     return next(new AppError('Password Incorrect. Try again!!', 401));
   }
 
@@ -416,27 +434,95 @@ const updatePassword = catchAsync(async (req, res, next) => {
   user.password = req.body.newPassword;
   await user.save();
 
-  // send a mail
-  ejs.renderFile(
-    path.join(__dirname, '../../views/email-template.ejs'), {
-      salutation: `Hello ${user.firstName}`,
-      body: `<p> You've successfully changed your password \n </p>
-      <p>If you didnt perfom this action, contact support immediately  \n <p> `,
-    },
-    async (err, data) => {
-        //use the data here as the mail body
-        const options = {
-          email: user.email,
-          subject: 'Password Changed!',
-          message: data,
-        };
-        await sendEmail(options);
-    }
+  // send Changepassword mail
+const subject = "Your Password was Changed";
+const send_to = user.email;
+const sent_from = "Redox Trading <hello@seemetracker.com>";
+const reply_to = "noreply@redox.com.ng";
+const template = "changePassword";
+const name = user.name;
+
+
+try {
+  await sendEmail(
+    subject,
+    send_to,
+    sent_from,
+    reply_to,
+    template,
+    name,
   );
+  res
+  .status(200)
+  .json({ success: true, message: "Change Password mail Sent"});
+} catch (error) {
+  res.status(500);
+  throw new Error("Email not sent, please try again");
+}
+  
 
   // Log user in -- send JWT
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, res);;
 });
+
+
+
+const changePassword = asyncHandler(async (req, res) => {
+  const user = await Admin.findById(req.user._id);
+  const { oldPassword, password } = req.body;
+
+  if (!user) {
+  res.status(400);
+  throw new Error("User not found, please signup");
+}
+//Validate
+if (!oldPassword || !password) {
+  res.status(400);
+  throw new Error("Please add old and new password");
+}
+
+// check if old password matches password in DB
+const passwordIsCorrect = await bcrypt.compare(oldPassword, user.password);
+
+// Save new password
+if (user && passwordIsCorrect) {
+  user.password = password;
+  await user.save();
+  res
+    .status(200)
+    .json({ message: "Password change successful, please re-login" });
+} else {
+  res.status(400);
+  throw new Error("Old password is incorrect");
+}
+
+// send Changepassword mail
+const subject = "Your Password was Changed";
+const send_to = user.email;
+const sent_from = "Redox Trading <hello@seemetracker.com>";
+const reply_to = "noreply@redox.com.ng";
+const template = "changePassword";
+const name = user.name;
+
+
+try {
+  await sendEmail(
+    subject,
+    send_to,
+    sent_from,
+    reply_to,
+    template,
+    name,
+  );
+  res
+  .status(200)
+  .json({ success: true, message: "Change Password mail Sent"});
+} catch (error) {
+  res.status(500);
+  throw new Error("Email not sent, please try again");
+}
+});
+
 
 // Get Admin user profile
   const getAdminProfile = catchAsync(async (req, res, next) => {
@@ -503,9 +589,10 @@ const updatePassword = catchAsync(async (req, res, next) => {
         isLoggedIn,
         forgotPassword,
         resetPassword,
-        updatePassword,
+        changePassword,
         getAdminProfile,
         updateUserProfile,
+        updatePassword,
         
 
     }
