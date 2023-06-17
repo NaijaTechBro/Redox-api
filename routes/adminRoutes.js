@@ -21,7 +21,7 @@ const {
 
 // admin auth routes
 router.post('/create' , createSuperAdmin)
-router.get('/email/verify', verifyEmail);
+router.get('/email/verify/:verificationToken', verifyEmail);
 router.put('/email/verify/resend', resendEmailVerification);
 router.post('/login', login);
 router.get('/logout', logout);
