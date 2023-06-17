@@ -7,6 +7,7 @@ const crypto = require("crypto")
 const jwt = require("jsonwebtoken")
 const sendEmail = require("../utils/sendEmail")
 const { successResMsg } = require("../utils/libs/response");
+const mongoose = require("mongoose");
 
 const {
   signAccessToken,
@@ -110,7 +111,6 @@ process.env.NODE_ENV == 'development'
           const send_to = email;
           const first_name = name;
           const sent_from = "Redox Trading <hello@seemetracker.com>";
-          const reply_to = "no-reply@redox.com.ng";
           const template = "welcome";
 
           try {
@@ -119,7 +119,6 @@ process.env.NODE_ENV == 'development'
                 send_to,
                 sent_from,
                 first_name,
-                reply_to,
                 template,
             );
             res
@@ -128,22 +127,6 @@ process.env.NODE_ENV == 'development'
             } catch (error) {
                 res.status(500);
                 throw new Error("Email not sent, please try again");
-            }
-
-            if (user) {
-              const { _id, name, email, photo, phone, isVerified, role } = user;
-              res.status(201).json({
-                _id,
-                name,
-                email,
-                photo,
-                phone,
-                isVerified,
-
-              });
-            } else {
-              res.status(400);
-              throw new Error("Invalid user data");
             }
 
     } catch (error) {
