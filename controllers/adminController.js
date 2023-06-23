@@ -195,27 +195,29 @@ process.env.NODE_ENV == 'development'
 
   const token = signAccessToken(data);
   const verificationUrl = `${URL}/admin/auth/email/verify/?verification_token=${token}`;
-
-   
+  console.log(token);
   const subject = "Verify your Email 🙏";
-  const send_to = email;
-  const link = verificationUrl;
+  const send_to = user.email;
   const sent_from = "Redox Trading <hello@seemetracker.com>";
-  const reply_to = "no-reply@redox.com.ng";
+  // const reply_to = "noreply@zino.com";
   const template = "verifyEmail";
+  const name = user.name;
+  const link = verificationUrl;
+
 
   try {
     await sendEmail(
         subject,
         send_to,
         sent_from,
+        // reply_to,
+        name,
         link,
-        reply_to,
         template,
     );
     res
         .status(200)
-        .json({ success: true, message: "'Signup Successful!." });
+        .json({ success: true, message: "Email verification sent successful!." });
     } catch (error) {
         res.status(500);
         throw new Error("Email not sent, please try again");
