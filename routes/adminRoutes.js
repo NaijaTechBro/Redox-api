@@ -3,6 +3,15 @@ const express = require('express');
 const router = express.Router();
 
 const {
+  loginLimiter,
+} = require('../middleware/loginLimiter')
+
+const {
+  adminOnly,
+  isAuthenticatedUser
+
+} = require('../middleware/authMiddleware')
+const {
   createSuperAdmin,
   login,
   logout,
@@ -27,14 +36,14 @@ router.post('/login', login);
 router.get('/logout', logout);
 router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:resettoken',  resetPassword);
-router.get('/loggedIn', isLoggedIn);
+router.get('/loggedIn', adminOnly, isLoggedIn);
 
 // Protected routes
 
 // Current User Routes
-router.patch('/updatePassword', updatePassword);
-router.get('/profile',  getAdminProfile);
-router.patch('/updateUser',  updateUserProfile);
+router.patch('/updatePassword', adminOnly, isAuthenticatedUser, updatePassword);
+router.get('/profile', isAuthenticatedUser, adminOnly, getAdminProfile);
+router.patch('/updateUser', isAuthenticatedUser, adminOnly,  updateUserProfile);
 
 module.exports = router;
 
