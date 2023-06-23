@@ -19,15 +19,30 @@ const postSchema = mongoose.Schema({
     },
     author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Subcriber"
+        ref: "User"
     },
     image: {
-        type: String,
+        url: String,
+        public_id: String,
     },
     content: {
         type: String,
-        required: true
+        required: [true, "content is required"],
     },
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    }],
+    comments: [
+        {
+            text: String,
+            created: { type: Date, default: Date.now },
+            postedBy: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+            },
+        },
+    ],
     readingTime: {
         type: String,
     },
