@@ -26,7 +26,7 @@ const {
   updateUserProfile,
   updatePassword,
 
-} = require('../controllers/adminController');
+} = require('../controllers/admin/authController');
 
 // admin auth routes
 router.post('/create' , createSuperAdmin)
