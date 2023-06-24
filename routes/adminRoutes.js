@@ -21,7 +21,6 @@ const {
   isLoggedIn,
   forgotPassword,
   resetPassword,
-  changePassword,
   getAdminProfile,
   updateUserProfile,
   updatePassword,
@@ -36,14 +35,14 @@ router.post('/login', login);
 router.get('/logout', logout);
 router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:resettoken',  resetPassword);
-router.get('/loggedIn', adminOnly, isLoggedIn);
+router.get('/loggedIn', isLoggedIn);
 
 // Protected routes
 
 // Current User Routes
-router.patch('/updatePassword', adminOnly, isAuthenticatedUser, updatePassword);
-router.get('/profile', isAuthenticatedUser, adminOnly, getAdminProfile);
-router.patch('/updateUser', isAuthenticatedUser, adminOnly,  updateUserProfile);
+router.patch('/updatePassword',protect, updatePassword);
+router.get('/profile',protect,  getAdminProfile);
+router.patch('/updateUser',protect, updateUserProfile);
 
 module.exports = router;
 
