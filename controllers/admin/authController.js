@@ -202,7 +202,7 @@ const createSuperAdmin = async (req, res, next) => {
     httpOnly: true,
   });
 
-  return successResMsg(res, 200, {});
+  return successResMsg(res, 200, {message: "logged out successfully"});
 };
 
 // Login Admin user
