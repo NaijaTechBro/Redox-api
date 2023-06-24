@@ -350,7 +350,7 @@ const createSuperAdmin = async (req, res, next) => {
   }).save();
 
   // Construct Reset Url
-  const resetUrl = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
+  const resetUrl = `${process.env.REDOX_FRONT_END_DEV_URL}/resetPassword/${resetToken}`;
   console.log(resetUrl);
 
   // Reset Email
@@ -545,12 +545,10 @@ try {
     return next(new AppError('Admin does not exist, do check the user id correctly', 404));
 
 
-  const { email, firstName, lastName } = req.body;
+  const { name } = req.body;
 
   const reqBody = {
-    firstName,
-    lastName,
-    email,
+    name,
   }
 
   const emailCheck = await Admin.exists({ email: email });
