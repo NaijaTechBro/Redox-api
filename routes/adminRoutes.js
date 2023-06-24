@@ -18,7 +18,7 @@ const {
   resendEmailVerification,
   verifyEmail,
   protect,
-  isLoggedIn,
+  loginStatus,
   forgotPassword,
   resetPassword,
   getAdminProfile,
@@ -35,7 +35,7 @@ router.post('/login', login);
 router.get('/logout', logout);
 router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:resettoken',  resetPassword);
-router.get('/loggedin', isLoggedIn);
+router.get('/loggedin', loginStatus);
 
 // Protected routes
 
