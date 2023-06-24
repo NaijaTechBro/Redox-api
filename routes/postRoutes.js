@@ -14,7 +14,7 @@ const {
     unLike
     
 
-} = require("../controllers/postController")
+} = require("../controllers/post/postController")
 
 const {
     isAuthenticatedUser,
