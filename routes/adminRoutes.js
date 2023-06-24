@@ -35,7 +35,7 @@ router.post('/login', login);
 router.get('/logout', logout);
 router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:resettoken',  resetPassword);
-router.get('/loggedIn', isLoggedIn);
+router.get('/loggedin', isLoggedIn);
 
 // Protected routes
 
