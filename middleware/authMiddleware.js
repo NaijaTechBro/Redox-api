@@ -50,7 +50,7 @@ const verifiedOnly = (req, res, next) => {
     //     };
 
     const adminOnly = (req, res, next) => {
-    if (req.user && req.user.role === "admin") {
+    if (req.user && req.user.role === "ROL-SUPERADMIN") {
         next();
     } else {
         res.status(401);
