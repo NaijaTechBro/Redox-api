@@ -67,7 +67,7 @@ const createSuperAdmin = async (req, res, next) => {
           email,
           password,
           isVerified: true,
-          role: 'ROL-SUPERADMIN',
+          role: 'ADMIN',
         });
 
         // Send Email to AdminUser
