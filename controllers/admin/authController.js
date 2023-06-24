@@ -279,38 +279,51 @@ const createSuperAdmin = async (req, res, next) => {
   next();
 });
 
-
-// Only for rendered pages
-  const isLoggedIn = async (req, res, next) => {
-  // Get token and check if it exists
-  if (req.cookies.jwt) {
-    try {
-      // Token verification
-      const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.REDOX_ACCESS_TOKEN_SECRET
-      );
-
-      // Check if user still exists
-      const currentUser = await Admin.findById(decoded.id);
-      if (!currentUser) {
-        return next();
-      }
-
-      // Check if user changed password after token was issued
-      if (currentUser.changedPasswordAfter(decoded.iat)) {
-        return next();
-      }
-
-      // There is a logged in user
-      res.locals.user = currentUser;
-      return next();
-    } catch (err) {
-      return next;
-    }
+// Get Login Status
+const loginStatus = asyncHandler(async (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.json(false);
   }
-  next();
-};
+  // Verify Token
+  const verified = jwt.verify(token, process.env.MY_SECRET);
+  if (verified) {
+    return res.json(true);
+  }
+  return res.json(false);
+});
+
+// // Only for rendered pages
+//   const isLoggedIn = async (req, res, next) => {
+//   // Get token and check if it exists
+//   if (req.cookies.jwt) {
+//     try {
+//       // Token verification
+//       const decoded = await promisify(jwt.verify)(
+//         req.cookies.jwt,
+//         process.env.REDOX_ACCESS_TOKEN_SECRET
+//       );
+
+//       // Check if user still exists
+//       const currentUser = await Admin.findById(decoded.id);
+//       if (!currentUser) {
+//         return next();
+//       }
+
+//       // Check if user changed password after token was issued
+//       if (currentUser.changedPasswordAfter(decoded.iat)) {
+//         return next();
+//       }
+
+//       // There is a logged in user
+//       res.locals.user = currentUser;
+//       return next();
+//     } catch (err) {
+//       return next;
+//     }
+//   }
+//   next();
+// };
 
 
 // Forgot password
@@ -579,7 +592,7 @@ try {
         resendEmailVerification,
         verifyEmail,
         protect,
-        isLoggedIn,
+        loginStatus,
         forgotPassword,
         resetPassword,
         changePassword,
