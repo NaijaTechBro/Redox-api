@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
-const validator = require("validator")
-const { ROLE_ADMIN, ROLE_USER } = require("../constants/index")
+const { ROLE_ADMIN, ROLE_BUSINESS, ROLE_CLIENT, ROLE_USER } = require("../constants/index")
 
 const userSchema = mongoose.Schema({
     user: {
@@ -17,7 +16,6 @@ const userSchema = mongoose.Schema({
         required: [true, "Please add your email"],
         unique: true,
         trim: true,
-        minLength: 8,
         match: [
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             "Please enter a valid email"
@@ -28,9 +26,6 @@ const userSchema = mongoose.Schema({
         required: [true, "Please add a password"],
         minLength: [6, "Password must be up to 6 characters"]
     },
-    passwordChangedAt: {
-        type: Date,
-    },
     disabled: {
         type: String,
     },
@@ -40,13 +35,45 @@ const userSchema = mongoose.Schema({
     accountLocked: {
         type: Boolean,
     },
-    status: {
+    home_address: {
         type: String,
-        default: 'Online',
     },
-    phone: {
-        type: Number,
+    city: {
+        type: String,
     },
+    state: {
+        type: String,
+    },
+    postal_code: {
+        type: String,
+    },
+    country: {
+        type: String,
+    },
+    bank_name: {
+        type: String,
+        required: [false, "Please add a firstName"]
+    },
+    account_number: {
+        type: String,
+        required: [false, "Please add a firstName"]
+    },
+    account_name: {
+        type: String,
+        required: [false, "Please add a firstName"]
+    },
+    transfer_type: {
+        type: String,
+        required: [false, "Please add a firstName"]
+    },
+    transfer_recept_to_me: {
+        type: String,
+        required: [false, "Please add a firstName"]
+    },
+    transfer_recept_to_customer: {
+        type: String,
+        required: [false, "Please add a firstName"]
+        },
     photo: {
         type: String,
         required: [true, "Please add an image"],
@@ -64,7 +91,7 @@ const userSchema = mongoose.Schema({
         type: String,
         require: true,
         default: "ROLE_USER",
-        enum: [ROLE_ADMIN, ROLE_USER]
+        enum: [ROLE_ADMIN, ROLE_USER, ROLE_CLIENT, ROLE_BUSINESS]
     },
     userAgent: {
         type: Array,
