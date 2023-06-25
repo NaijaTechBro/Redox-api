@@ -1,49 +1,43 @@
-const express = require('express');
-
+const express = require("express");
 const router = express.Router();
-
 const {
-  loginLimiter,
-} = require('../middleware/loginLimiter')
-
+    registerUser,
+    loginUser,
+    logout,
+    loginStatus,
+    updateUser,
+    changePassword,
+    forgotPassword,
+    resetPassword,
+    sendVerificationEmail,
+    verifyUser,
+    sendAutomatedEmail,
+    loginWithGoogle,
+    sendLoginCode,
+    loginWithCode,
+} = require("../controllers/authController");
 const {
-  adminOnly,
-  isAuthenticatedUser
+    isAuthenticatedUser,
+} = require("../middleware/authMiddleware");
+const loginLimiter = require("../middleware/loginLimiter");
 
-} = require('../middleware/authMiddleware')
-const {
-  createSuperAdmin,
-  login,
-  logout,
-  resendEmailVerification,
-  verifyEmail,
-  protect,
-  loginStatus,
-  forgotPassword,
-  resetPassword,
-  getAdminProfile,
-  updateUserProfile,
-  updatePassword,
+router.post("/users/auth/register", registerUser);
+router.post("/auth/sendVerificationEmail", isAuthenticatedUser, sendVerificationEmail);
+router.patch("/auth/verifyUser/:verificationToken", verifyUser);
+router.post("/users/auth/login", loginLimiter, loginUser);
+router.get("/logout", logout);
 
-} = require('../controllers/admin/authController');
+router.post("/users/sendAutomatedEmail", isAuthenticatedUser, sendAutomatedEmail);
+router.post("/users/sendLoginCode/:email", sendLoginCode);
+router.post("/users/loginWithCode/:email", loginWithCode);
 
-// admin auth routes
-router.post('/create' , createSuperAdmin)
-router.patch('/email/verify/:verificationToken', verifyEmail);
-router.post('/email/verify/resend', resendEmailVerification);
-router.post('/login', login);
-router.get('/logout', logout);
-router.post('/forgotPassword', forgotPassword);
-router.patch('/resetPassword/:resettoken',  resetPassword);
-router.get('/loggedin', loginStatus);
+router.get("/users/auth/loginStatus", loginStatus);
+router.patch("/users/updateUser", isAuthenticatedUser, updateUser);
+router.patch("/users/changePassword", isAuthenticatedUser, changePassword);
+router.post("/users/forgotPassword", forgotPassword);
+router.patch("/users/resetPassword/:resetToken", resetPassword);
 
-// Protected routes
+router.post("/users/auth/google/callback/:ID", loginLimiter, loginWithGoogle);
 
-// Current User Routes
-router.patch('/updatePassword',protect, updatePassword);
-router.get('/profile',protect,  getAdminProfile);
-router.patch('/updateUser',protect, updateUserProfile);
 
 module.exports = router;
-
-
