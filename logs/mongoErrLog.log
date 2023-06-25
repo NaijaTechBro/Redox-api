@@ -41,3 +41,13 @@
 20230624	00:03:37	9cc88deb-306e-4165-b0c3-8eb7bf5dd611	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
 20230624	00:20:23	5abf8c53-7f6b-4544-8c86-6dfabd18e41d	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
 20230624	00:22:37	54e08855-7488-428e-8419-9d79da429b0c	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230624	18:54:57	add25174-9149-44ff-809a-6eca4b04b4b6	undefined: ETIMEOUT	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230624	19:09:00	979ec978-e375-4505-99a2-8bac9f8abd10	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230624	19:09:25	fc10dcbb-dd6f-469b-95f6-3b67eb8747d2	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230624	19:27:19	ed9dc5b4-8ee3-4f02-b3a9-3edb2303780b	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230624	19:28:14	27fb52a2-f8b7-4564-8f4c-3a7cd06a23fb	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230624	19:30:29	9bd6617d-bd78-4529-a541-d57c15b88d95	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230624	19:30:54	b4b71c15-30fd-46de-9289-5fa1d5d531db	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230624	19:34:57	1eeda5ca-b249-4a0b-a30b-562768533e50	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230624	19:36:06	fa43eb10-65f6-4257-8909-c9eca8acd538	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net
+20230624	20:26:22	83366b82-fd52-4520-9923-4a90ca226ec8	undefined: EREFUSED	querySrv	_mongodb._tcp.cluster0.2muryjl.mongodb.net

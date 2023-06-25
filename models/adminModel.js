@@ -1,122 +1,120 @@
-const crypto = require('crypto');
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
+const { ROLE_ADMIN, ROLE_BUSINESS, ROLE_CLIENT, ROLE_USER } = require("../constants/index")
 
+const adminSchema = mongoose.Schema({
+    user: {
+        type: String,
+        required: [false, "Please add a name"]
+    },
+    name: {
+        type: String,
+        required: [true, "Please add your name"]
+    },
+    email: {
+        type: String,
+        required: [true, "Please add your email"],
+        unique: true,
+        trim: true,
+        match: [
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            "Please enter a valid email"
+        ]
+    },
+    password: {
+        type: String,
+        required: [true, "Please add a password"],
+        minLength: [6, "Password must be up to 6 characters"]
+    },
+    disabled: {
+        type: String,
+    },
+    accountExpired: {
+        type: Boolean,
+    } ,
+    accountLocked: {
+        type: Boolean,
+    },
+    home_address: {
+        type: String,
+    },
+    city: {
+        type: String,
+    },
+    state: {
+        type: String,
+    },
+    postal_code: {
+        type: String,
+    },
+    country: {
+        type: String,
+    },
+    bank_name: {
+        type: String,
+        required: [false, "Please add a firstName"]
+    },
+    account_number: {
+        type: String,
+        required: [false, "Please add a firstName"]
+    },
+    account_name: {
+        type: String,
+        required: [false, "Please add a firstName"]
+    },
+    transfer_type: {
+        type: String,
+        required: [false, "Please add a firstName"]
+    },
+    transfer_recept_to_me: {
+        type: String,
+        required: [false, "Please add a firstName"]
+    },
+    transfer_recept_to_customer: {
+        type: String,
+        required: [false, "Please add a firstName"]
+        },
+    photo: {
+        type: String,
+        required: [true, "Please add an image"],
+        default: "https://i.ibb.co/4pDNDk1/avatar.png"
+    },
+    vToken: {
+        type: Object,
+        default: {},
+    },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    role: {
+        type: String,
+        require: true,
+        default: "ROLE_ADMIN",
+        enum: [ROLE_ADMIN, ROLE_USER, ROLE_CLIENT, ROLE_BUSINESS]
+    },
+    userAgent: {
+        type: Array,
+        required: true,
+        default: [],
+    },
+}, {
+    timestamps: true,
+    minimize: false,
+})
 
-const adminSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    lowercase: true,
-    required: [true, 'Please enter your Name!'],
-  },
-  email: {
-    type: String,
-    unique: true,
-    lowercase: true,
-    required: [true, 'Please enter your email address!'],
-  },
-  isVerified: {
-    type: Boolean,
-    default: false,
-    select: false,
-  },
-  block: {
-    type: Boolean,
-    default: false,
-    select: false,
-  },
-  profileImage: {
-    type: String,
-    lowercase: true,
-    default: "https://res.cloudinary.com/oluwatobiloba/image/upload/v1628753027/Grazac/avatar_cihz37.png",
-  },
-  password: {
-    type: String,
-    required: [true, 'Please provide a password.'],
-    minlength: 8,
-    select: false,
-  },
-  passwordChangedAt: {
-    type: Date,
-  },
-  passwordResetToken: {
-    type: String,
-  },
-  passwordResetExpires: {
-    type: Date,
-  },
-  role: {
-    type: String, // either: ROL-ADMIN or ROL-SUPERADMIN
-    default: 'ROL-ADMIN',
-  },
-  invitedBy: {
-    type: String,
-  }
-},
-{ timestamps: true },
-{
-  toObject: {
-    virtuals: true,
-  },
-  toJSON: {
-    virtuals: true,
-  },
-}
-);
+// Encrypt and hash password before save
+adminSchema.pre ("save", async function(next) {
+    if(!this.isModified("password")) {
+        return next()
+    }
 
-adminSchema.pre('save', async function (next) {
-  // If password was modified
-  if (!this.isModified('password')) return next();
+    // hash Password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(this.password, salt);
+    this.password = hashedPassword;
+    next();
 
-  // Hash Password with cost of 12
-  this.password = await bcrypt.hash(this.password, 12);
+})
 
-  next();
-});
-
-adminSchema.pre('save', function (next) {
-  if (!this.isModified('password') || this.isNew) return next();
-
-  this.passwordChangedAt = Date.now() - 1000;
-  next();
-});
-
-adminSchema.methods.correctPassword = function (
-  candidatePassword,
-  userPassword
-) {
-  return bcrypt.compare(candidatePassword, userPassword);
-};
-
-adminSchema.pre(/^find/, function (next) {
-  this.find({ active: { $ne: false } });
-  next();
-});
-
-adminSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
-  if (this.passwordChangedAt) {
-    const changedTimestamp = parseInt(
-      this.passwordChangedAt.getTime() / 1000,
-      10
-    );
-    return JWTTimestamp < changedTimestamp;
-  }
-  // Password not changed
-  return false;
-};
-
-adminSchema.methods.createPasswordResetToken = function () {
-  const resetToken = crypto.randomBytes(32).toString('hex');
-  this.passwordResetToken = crypto
-    .createHash('sha256')
-    .update(resetToken, 'utf8')
-    .digest('hex');
-
-  this.passwordResetExpires = Date.now() + 20 * 60 * 1000;
-
-  return resetToken;
-};
-
-const Admin = mongoose.model('Admin', adminSchema);
-
-module.exports = Admin;
+module.exports = mongoose.model("Admin", adminSchema);
