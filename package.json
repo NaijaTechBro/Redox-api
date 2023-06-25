@@ -1,7 +1,7 @@
 {
   "name": "redox-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "single post",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -30,7 +30,7 @@
     "exceljs": "^4.3.0",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
-    "express-handlebars": "^6.0.6",
+    "express-handlebars": "^7.0.7",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^6.7.0",
     "google-auth-library": "^8.8.0",
