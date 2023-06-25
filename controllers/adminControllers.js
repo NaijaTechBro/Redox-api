@@ -2,7 +2,6 @@ const asyncHandler = require("express-async-handler");
 const Admin = require("../models/adminModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const uuidv4 = require('uuid');
 const Token = require("../models/tokenModel");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
@@ -10,18 +9,13 @@ const { OAuth2Client } = require("google-auth-library");
 const parser = require("ua-parser-js");
 const { hashToken, generateToken, decrypt, encrypt } = require("../utils");
 const Cryptr = require("cryptr");
+const mongoose = require("mongoose")
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const cryptr = new Cryptr(process.env.CRYPTR_KEY);
 
-
-const URL =
-process.env.NODE_ENV == 'development'
-    ? process.env.REDOX_FRONT_END_DEV_URL
-    : process.env.REDOX_FRONT_END_LIVE_URL
-
-// Register User
-const createSuperAdmin = asyncHandler(async (req, res) => {
+// Register Admin
+const registerAdmin = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
   // Validation
@@ -52,7 +46,6 @@ const createSuperAdmin = asyncHandler(async (req, res) => {
     email,
     password,
     userAgent,
-    role: 'ROL-SUPERADMIN',
   });
 
   //   Generate JWT Token
@@ -67,53 +60,35 @@ const createSuperAdmin = asyncHandler(async (req, res) => {
     secure: true,
   });
 
-  
-   //send welcome mail
-   const subject = "Redox Trading Signup Successful! 🎉🙏";
-   const send_to = email;
-   const first_name = name;
-   const sent_from = "Redox Trading <hello@seemetracker.com>";
-   const reply_to = "no-reply@redox.com.ng";
-   const template = "welcome";
+  //send welcome mail
+  const sent_from = "Redox Trading <hello@seemetracker.com>";
+  const send_to = email;
+  const reply_to = "<hello@seemetracker.com>";
+  const subject = "Welcome to Redox Trading";
+  const template = "welcome";
+  const first_name = name;
 
   try {
     await sendEmail(
-      subject,
-      send_to,
       sent_from,
+      send_to,
       reply_to,
+      subject,
       template,
       first_name,
     );
     res
-    .status(200)
-    .json({ success: true, message: "'Hello, Super Admin account created!."});
+      .status(200)
+      .json({ success: true, message: "Welcome Email Sent" });
   } catch (error) {
     res.status(500);
     throw new Error("Email not sent, please try again");
-  }
-
-  if (user) {
-    const { _id, name, email, photo, phone, isVerified, role } = user;
-    res.status(201).json({
-      _id,
-      name,
-      email,
-      photo,
-      phone,
-      isVerified,
-      token,
-      role,
-    });
-  } else {
-    res.status(400);
-    throw new Error("Invalid user data");
   }
 });
 
 
 // Login User
-const loginUser = asyncHandler(async (req, res) => {
+const loginAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   // Validate Request
@@ -127,7 +102,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (!user) {
     res.status(400);
-    throw new Error("User not found, please signup");
+    throw new Error("Admin not found, please signup");
   }
 
   // User exists, check if password is correct
@@ -160,7 +135,7 @@ const loginUser = asyncHandler(async (req, res) => {
       userId: user._id,
       loginToken: encryptedLoginCode,
       createdAt: Date.now(),
-      expiresAt: Date.now() + 60 * (60 * 1000), // Thirty minutes
+      expiresAt: Date.now() + 60 * (60 * 1000), // Thirty minutes  1hr = 60 * (60 * 1000)
     }).save();
 
     res.status(400);
@@ -202,12 +177,12 @@ const sendLoginCode = asyncHandler(async (req, res) => {
   res.send("Login Token");
   const { email } = req.params;
   console.log(email);
-  const user = await User.findOne({ email });
+  const user = await Admin.findOne({ email });
 
   // Check if user doesn't exists
   if (!user) {
     res.status(404);
-    throw new Error("User not found");
+    throw new Error("Admin User not found");
   }
 
   // Find Access Token in DB
@@ -223,10 +198,9 @@ const sendLoginCode = asyncHandler(async (req, res) => {
   const decryptedLoginCode = cryptr.decrypt(loginCode);
   console.log(loginCode);
 
-  const subject = "Login Access Code - Nestlypay";
+  const subject = "Login Access Code - Redox Trading";
   const send_to = email;
-  const sent_from = process.env.EMAIL_USER;
-  const reply_to = "noreply@nestlypay.com";
+  const sent_from = "Redox Trading <hello@seemetracker.com>";
   const template = "accessToken";
   const name = user.name;
   const link = decryptedLoginCode;
@@ -236,7 +210,6 @@ const sendLoginCode = asyncHandler(async (req, res) => {
       subject,
       send_to,
       sent_from,
-      reply_to,
       template,
       name,
       link
@@ -259,12 +232,12 @@ const loginWithCode = asyncHandler(async (req, res) => {
   console.log(email);
   console.log(loginCode);
 
-  const user = await User.findOne({ email });
+  const user = await Admin.findOne({ email });
 
   // Check if user doesn't exists
   if (!user) {
     res.status(404);
-    throw new Error("User not found");
+    throw new Error("Admin User not found");
   }
 
   // Find Token in DB
@@ -321,17 +294,17 @@ const loginWithCode = asyncHandler(async (req, res) => {
 
 // Send Verification Email
 const sendVerificationEmail = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  const user = await Admin.findById(req.user._id);
 
   // Check if user doesn't exists
   if (!user) {
     res.status(404);
-    throw new Error("User not found");
+    throw new Error("Admin User not found");
   }
 
   if (user.isVerified) {
     res.status(400);
-    throw new Error("User already verified");
+    throw new Error("Admin User already verified");
   }
 
   // Delete token if it exists in DB
@@ -355,23 +328,12 @@ const sendVerificationEmail = asyncHandler(async (req, res) => {
   }).save();
 
   // Construct Verification Url
-  const verificationUrl = `${process.env.FRONTEND_URL}/verify/${verificationToken}`;
+  const verificationUrl = `${process.env.REDOX_FRONT_END_LIVE_URL}/admin/verify/${verificationToken}`;
 
   // Verification Email
-  // const message = `
-  //     <h2>Hello ${user.name}</h2>
-  //     <p>Please use the url below to verify your account</p>
-  //     <p>This link is valid for 24hrs</p>
-
-  //     <a href=${verificationUrl} clicktracking=off>${verificationUrl}</a>
-
-  //     <p>Regards...</p>
-  //     <p>Nestlypay Team</p>
-  //   `;
-  const subject = "Verify Your Account - Nestlypay";
+  const subject = "Verify Your Account - Redox Trading";
   const send_to = user.email;
-  const sent_from = process.env.EMAIL_USER;
-  const reply_to = "noreply@nestlypay.com";
+  const sent_from = "Redox <hello@seemetracker.com>";
   const template = "email";
   const name = user.name;
   const link = verificationUrl;
@@ -381,7 +343,6 @@ const sendVerificationEmail = asyncHandler(async (req, res) => {
       subject,
       send_to,
       sent_from,
-      reply_to,
       template,
       name,
       link
@@ -416,11 +377,11 @@ const verifyUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid or Expired Token!!!");
   }
   // Find User
-  const user = await User.findOne({ _id: userToken.userId });
+  const user = await Admin.findOne({ _id: userToken.userId });
 
   if (user.isVerified) {
     res.status(400);
-    throw new Error("User is already verified!!!");
+    throw new Error("Admin User is already verified!!!");
   }
 
   // Now Verify user
@@ -451,12 +412,12 @@ const loginWithGoogle = asyncHandler(async (req, res) => {
   const userAgent = [ua.ua];
 
   // Check is the user exists
-  const user = await User.findOne({ email });
+  const user = await Admin.findOne({ email });
 
   // User doesn't exist, register user
   if (!user) {
     // Create new use
-    const newUser = await User.create({
+    const newUser = await Admin.create({
       name,
       email,
       password,
@@ -552,7 +513,7 @@ const loginStatus = asyncHandler(async (req, res) => {
 
 // Update User
 const updateUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  const user = await Admin.findById(req.user._id);
 
   if (user) {
     const { name, email, photo, phone, role, isVerified } = user;
@@ -578,7 +539,7 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 const changePassword = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  const user = await Admin.findById(req.user._id);
   const { oldPassword, password } = req.body;
 
   if (!user) {
@@ -609,59 +570,26 @@ const changePassword = asyncHandler(async (req, res) => {
   // send Changepassword mail
   const subject = "Your Password was Changed";
   const send_to = user.email;
-  const sent_from = process.env.EMAIL_USER;
-  const reply_to = "noreply@nestlypay.com";
+  const sent_from = "Redox Trading <hello@seemetracker.com>";
   const template = "changePassword";
   const name = user.name;
 
-  
+
   try {
     await sendEmail(
       subject,
       send_to,
       sent_from,
-      reply_to,
       template,
       name,
     );
     res
-    .status(200)
-    .json({ success: true, message: "Change Password mail Sent"});
+      .status(200)
+      .json({ success: true, message: "Change Password mail Sent" });
   } catch (error) {
     res.status(500);
     throw new Error("Email not sent, please try again");
   }
-
-
-  
-  // // Construct Reset Url
-  // const resetUrl = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
-  // console.log(resetUrl);
-
-  // // Reset Email
-  // const subject = "Your Password was Changed";
-  // const send_to = user.email;
-  // const sent_from = process.env.EMAIL_USER;
-  // const reply_to = "noreply@nestlypay.com";
-  // const template = "changePassword";
-  // const name = user.name;
-  // const link = resetUrl;
-
-  // try {
-  //   await sendEmail(
-  //     subject,
-  //     send_to,
-  //     sent_from,
-  //     reply_to,
-  //     template,
-  //     name,
-  //     link
-  //   );
-  //   res.status(200).json({ success: true, message: "Email Sent!!!" });
-  // } catch (error) {
-  //   res.status(500);
-  //   throw new Error("Email not sent, please try again");
-  // }
 });
 
 
@@ -670,7 +598,7 @@ const changePassword = asyncHandler(async (req, res) => {
 // forgotPassword
 const forgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
-  const user = await User.findOne({ email });
+  const user = await Admin.findOne({ email });
 
   if (!user) {
     res.status(404);
@@ -683,7 +611,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     await token.deleteOne();
   }
 
-  // Create Reste Token
+  // Create Reset Token
   let resetToken = crypto.randomBytes(32).toString("hex") + user._id;
   console.log(resetToken);
 
@@ -702,26 +630,26 @@ const forgotPassword = asyncHandler(async (req, res) => {
   }).save();
 
   // Construct Reset Url
-  const resetUrl = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
-  console.log(resetUrl);
+  const resetUrl = `${process.env.REDOX_FRONT_END_LIVE_URL}/admin/resetPassword/${resetToken}`;
+  // console.log(resetUrl);
 
   // Reset Email
+  const sent_from = "Redox Trading <hello@seemetracker.com>";
+  const send_to = email;
+  const reply_to = "<hello@seemetracker.com>";
   const subject = "Password Reset Request";
-  const send_to = user.email;
-  const sent_from = process.env.EMAIL_USER;
-  const reply_to = "noreply@nestlypay.com";
   const template = "forgotPassword";
-  const name = user.name;
+  const first_name = user.name;
   const link = resetUrl;
 
   try {
     await sendEmail(
-      subject,
-      send_to,
       sent_from,
+      send_to,
       reply_to,
+      subject,
       template,
-      name,
+      first_name,
       link
     );
     res.status(200).json({ success: true, message: "Email Sent!!!" });
@@ -754,7 +682,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   }
 
   // Find user and reset password
-  const user = await User.findOne({ _id: userToken.userId });
+  const user = await Admin.findOne({ _id: userToken.userId });
   user.password = password;
   await user.save();
 
@@ -775,22 +703,16 @@ const sendAutomatedEmail = asyncHandler(async (req, res) => {
   }
 
   // Get user
-  const user = await User.findOne({ email: send_to });
+  const user = await Admin.findOne({ email: send_to });
 
   if (!user) {
     res.status(404);
     throw new Error("User not found");
   }
 
-  // const subject = "Verify Your Account - Nestlypay";
-  // const send_to = user.email;
-  // const sent_from = process.env.EMAIL_USER;
-  // const reply_to = "noreply@nestlypay.com";
-  // const template = "email";
-  const sent_from = process.env.EMAIL_USER;
+  const sent_from = process.env.REDOX_EMAIL_USER;
   const name = user.name;
-  const link = `${process.env.FRONTEND_URL}${url}`;
-  // const role = user.role;
+  const link = `${process.env.REDOX_FRONT_END_LIVE_URL}${url}`;
 
   try {
     await sendEmail(
@@ -812,10 +734,10 @@ const sendAutomatedEmail = asyncHandler(async (req, res) => {
 
 
 module.exports = {
-createSuperAdmin,
+  registerAdmin,
   sendVerificationEmail,
   verifyUser,
-  loginUser,
+  loginAdmin,
   logout,
   loginStatus,
   updateUser,
