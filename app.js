@@ -39,7 +39,7 @@ const connectDB = require('./config/dbConn');
 // Route Import
 const subscriberRoutes = require("./routes/subscriberRoutes");
 const postRoutes = require("./routes/postRoutes");
-const adminRoutes = require('./routes/adminRoutes');
+const adminRoutes = require('./routes/admin/authRoutes');
 const newsletterRoutes = require('./routes/newsletterRoutes');
 
 // Connecting to Database Environments
