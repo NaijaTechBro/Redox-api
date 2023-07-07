@@ -23,15 +23,15 @@ const {
 
 
 
-router.post ("/create-post",isAuthenticatedUser, createPost, adminOnly);
+router.post ("/create-post",createPost,);
 router.get('/show', showPost);
-router.patch ("/update-post/:id", updatePost, adminOnly);
+router.patch ("/update-post/:id", updatePost,);
 router.get ("/get-post/:id", getPost );
 router.get ("/get-posts", getPosts, adminOnly);
 router.get ("/getPostByUser", getPostsByUser, adminOnly);
-router.delete ("/delete-post/:id", isAuthenticatedUser, deletePost, adminOnly);
-router.put('/comment/post/:id', isAuthenticatedUser, addComment);
-router.put('/addlike/post/:id', isAuthenticatedUser, addLike);
-router.put('/removelike/post/:id', isAuthenticatedUser, unLike);
+router.delete ("/delete-post/:id", deletePost, adminOnly);
+router.put('/comment/post/:id', addComment);
+router.put('/addlike/post/:id', addLike);
+router.put('/removelike/post/:id', unLike);
 
 module.exports = router;
