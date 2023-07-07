@@ -17,9 +17,9 @@ const postSchema = mongoose.Schema({
         enum: ["CryptoCurrency", "Economics", "Forex"]
         
     },
-    author: {
+    postedBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "Admin"
     },
     image: {
         url: String,
