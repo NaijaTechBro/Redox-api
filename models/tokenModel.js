@@ -6,6 +6,11 @@ const tokenSchema = mongoose.Schema({
     required: true,
     ref: "user",
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "Admin",
+        },
     token: {
     type: String,
     default: "",
