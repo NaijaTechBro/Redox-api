@@ -12,24 +12,25 @@ const createPost = asyncHandler(async (req, res) => {
     
     try {
         // upload image in clodinary
-        const result = await cloudinary.uploader.upload(image, {
-            folder: "blogposts",
-            width: 1200,
-            crop: "scale"
-        })
+        // const result = await cloudinary.uploader.upload(image, {
+        //     folder: "blogposts",
+        //     width: 1200,
+        //     crop: "scale"
+        // })
         const post = await Post.create({
             title,
             summary,
             content,
             category,
             author,
-            image: {
-                public_id: result.public_id,
-                url: result.secure_url
-            },
+            image,
+            // image: {
+            //     public_id: result.public_id,
+            //     url: result.secure_url
+            // },
              createdAt: new Date().toISOString() })
 
-        await Post.save()
+        await post.save()
         res.status(201).json({
             success: true,
             post
