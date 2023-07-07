@@ -3,10 +3,6 @@ const bcrypt = require("bcrypt")
 const { ROLE_ADMIN, ROLE_BUSINESS, ROLE_CLIENT, ROLE_USER } = require("../constants/index")
 
 const adminSchema = mongoose.Schema({
-    user: {
-        type: String,
-        required: [false, "Please add a name"]
-    },
     name: {
         type: String,
         required: [true, "Please add your name"]
@@ -35,45 +31,6 @@ const adminSchema = mongoose.Schema({
     accountLocked: {
         type: Boolean,
     },
-    home_address: {
-        type: String,
-    },
-    city: {
-        type: String,
-    },
-    state: {
-        type: String,
-    },
-    postal_code: {
-        type: String,
-    },
-    country: {
-        type: String,
-    },
-    bank_name: {
-        type: String,
-        required: [false, "Please add a firstName"]
-    },
-    account_number: {
-        type: String,
-        required: [false, "Please add a firstName"]
-    },
-    account_name: {
-        type: String,
-        required: [false, "Please add a firstName"]
-    },
-    transfer_type: {
-        type: String,
-        required: [false, "Please add a firstName"]
-    },
-    transfer_recept_to_me: {
-        type: String,
-        required: [false, "Please add a firstName"]
-    },
-    transfer_recept_to_customer: {
-        type: String,
-        required: [false, "Please add a firstName"]
-        },
     photo: {
         type: String,
         required: [true, "Please add an image"],
