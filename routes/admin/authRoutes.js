@@ -15,7 +15,7 @@ const {
     loginWithGoogle,
     sendLoginCode,
     loginWithCode,
-} = require("../../controllers/adminControllers");
+} = require("../../controllers/admin/authControllers");
 const {
     isAuthenticatedUser,
 } = require("../../middleware/authMiddleware");
