@@ -18,10 +18,10 @@ const {
 } = require("../../controllers/admin/authControllers");
 
 
-router.post("/auth/register", registerAdmin);
-router.post("/auth/login", loginAdmin);
+router.post("/create", registerAdmin);
+router.post("/login", loginAdmin);
 router.get("/logout", logout);
-router.get("/auth/loginStatus", loginStatus);
+router.get("/loginStatus", loginStatus);
 router.patch("/updateUser", updateUser);
 router.post("/forgotPassword", forgotPassword);
 router.patch("/resetPassword/:resetToken", resetPassword);
