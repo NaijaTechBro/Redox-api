@@ -649,14 +649,14 @@ const forgotPassword = asyncHandler(async (req, res) => {
   }).save();
 
   // Construct Reset Url
-  const resetUrl = `${process.env.REDOX_FRONT_END_LIVE_URL}/admin/resetPassword/${resetToken}`;
+  const resetUrl = `${process.env.REDOX_FRONT_END_LIVE_URL}/resetPassword/${resetToken}`;
   // console.log(resetUrl);
 
   // Reset Email
   const sent_from = "Redox Trading <hello@seemetracker.com>";
   const send_to = email;
   const reply_to = "<hello@seemetracker.com>";
-  const subject = "Password Reset Request";
+  const subject = "Password Reset Request - Redox Trading";
   const template = "forgotPassword";
   const first_name = user.name;
   const link = resetUrl;
