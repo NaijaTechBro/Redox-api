@@ -16,12 +16,6 @@ const {
 
 } = require("../controllers/post/postController")
 
-const {
-    isAuthenticatedUser,
-    adminOnly,
-} = require("../middleware/authMiddleware")
-
-
 
 router.post ("/create-post",createPost,);
 router.get('/show', showPost);
